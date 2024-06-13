@@ -1,4 +1,7 @@
-﻿using MyBlog.Application.Interfaces.UnitOfWork;
+﻿using MyBlog.Application.Interfaces.Repositories;
+using MyBlog.Application.Interfaces.UnitOfWork;
+using MyBlog.Persistence.Contexts;
+using MyBlog.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +10,28 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Persistence.UnitOfWork
 {
-	public class Uow : IUow
+	public class Uow(BlogDbContext dbContext) : IUow
 	{
-		public ValueTask DisposeAsync()
+		private readonly BlogDbContext dbContext = dbContext;
+
+		public async ValueTask DisposeAsync()
 		{
-			throw new NotImplementedException();
+			await dbContext.DisposeAsync();
 		}
+
+
+
+		IReadRepository<T> IUow.GetReadRepository<T>() => new ReadRepository<T>(dbContext);
+		IWriteRepository<T> IUow.GetWriteRepository<T>() => new WriteRepository<T>(dbContext);
+		public async Task<int> SaveChangesAsync(CancellationToken cancellationToken) => await dbContext.SaveChangesAsync(cancellationToken);
+		public int SaveChanges() => dbContext.SaveChanges();
+		#region Transaction
+
+		public async Task BeginTransactionAsync(CancellationToken cancellationToken = default) => await dbContext.Database.BeginTransactionAsync(cancellationToken);
+		public async Task CommitTransactionAsync(CancellationToken cancellationToken = default) => await dbContext.Database.CommitTransactionAsync(cancellationToken);
+		public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default) => await dbContext.Database.RollbackTransactionAsync(cancellationToken);
+
+		#endregion
+	
 	}
 }

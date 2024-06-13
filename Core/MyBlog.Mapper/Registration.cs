@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.DependencyInjection;
+using MyBlog.Application.Interfaces.AutoMapper;
 
 namespace MyBlog.Mapper
 {
 	public static class Registration
 	{
+		public static void AddMapperLayer(this IServiceCollection services)
+		{
+			services.AddSingleton<IMyMapper, AutoMapper.Mapper>();
+		}
 	}
 }

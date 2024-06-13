@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MyBlog.Domain.Entities;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace MyBlog.Application.Interfaces.Tokens
 {
 	public interface ITokenService
 	{
+		Task<JwtSecurityToken> GenerateAccessToken(Author author, IList<string> roles);
+		string GenerateRefreshToken();
+		ClaimsPrincipal? GetClaimsPrincipalFromToken(string token);
 	}
 }

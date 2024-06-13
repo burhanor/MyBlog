@@ -22,7 +22,7 @@ namespace MyBlog.Domain.Entities
         public Card Card { get; set; }
 
         public Author Author { get; set; }
-        public ICollection<PostImage> PostImages { get; set; }
-        public ICollection<PostSeries> PostSeries { get; set; }
+		public ICollection<PostImage> PostImages { get; set; }
+		public ICollection<SeriesImage> SeriesImages { get; set; }
     }
 }

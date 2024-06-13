@@ -9,7 +9,7 @@ namespace MyBlog.Domain.Entities
 		public string EmailAddress { get; set; } = string.Empty;
 		public string Password { get; set; } = string.Empty;
 		public string Summary { get; set; } = string.Empty;
-		public int ImageId { get; set; }
+		public int? ImageId { get; set; }
 		public string Token { get; set; } = string.Empty;
 		public string RefreshToken { get; set; } = string.Empty;
 		public AuthorType AuthorType { get; set; }
