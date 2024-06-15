@@ -12,8 +12,7 @@ namespace MyBlog.Domain.Entities
 		public int? ImageId { get; set; }
 		public string Token { get; set; } = string.Empty;
 		public string RefreshToken { get; set; } = string.Empty;
-		public AuthorType AuthorType { get; set; }
-
+		public AuthorType AuthorType { get; set; } = AuthorType.Contributor;
 		public ICollection<Post> Posts { get; set; }
 		public Image Image { get; set; }
 		public ICollection<SocialLink> SocialLinks { get; set; }

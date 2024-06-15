@@ -44,6 +44,17 @@ namespace MyBlog.Persistence.Repositories
 			return await query.Where(predicate).Select(select).FirstOrDefaultAsync(cancellationToken)??new();
 		}
 
+		public async Task<T> GetAsync( Expression<Func<T, bool>> predicate, bool enableTracking = false, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, CancellationToken cancellationToken = default)
+	
+		{
+			IQueryable<T> query = Table;
+			if (!enableTracking)
+				query = query.AsNoTracking();
+			if (include != null)
+				query = include(query);
+			return await query.Where(predicate).FirstOrDefaultAsync(cancellationToken) ?? new();
+		}
+
 		public async Task<IList<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null, bool enableTracking = false, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, int? currentPage = null, int? pageSize = null, CancellationToken cancellationToken = default)
 		{
 			IQueryable<T> query = Table;

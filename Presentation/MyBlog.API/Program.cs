@@ -3,6 +3,11 @@ using MyBlog.Persistence;
 using MyBlog.Mapper;
 using MyBlog.Application.Exceptions;
 using MyBlog.Infrastructure;
+using Asp.Versioning;
+using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Options;
+using MyBlog.API.Controllers;
+using Asp.Versioning.ApiExplorer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +16,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+	options.SwaggerDoc("v1", new OpenApiInfo
+	{
+		Version = "v1",
+		Title = "BLOG API",
+		Description = "CQRS - Mediatr Blog API"
+	});
+
+});
 
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 builder.Configuration.AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true);
@@ -22,6 +36,24 @@ builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+
+builder.Services.AddApiVersioning(config =>
+{
+	config.DefaultApiVersion = new ApiVersion(1, 0);
+	config.AssumeDefaultVersionWhenUnspecified = true;
+	config.ReportApiVersions = true;
+	config.ApiVersionReader = ApiVersionReader.Combine(
+		new UrlSegmentApiVersionReader(),
+		new HeaderApiVersionReader("api-version")
+	);
+}).AddApiExplorer(options =>
+{
+	options.GroupNameFormat = "'v'V";
+	options.SubstituteApiVersionInUrl = true;
+
+});
+
+
 var app = builder.Build();
 
 
@@ -29,7 +61,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
-	app.UseSwaggerUI();
+	app.UseSwaggerUI(options =>
+	{
+		options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+	});
 }
 
 app.UseHttpsRedirection();
