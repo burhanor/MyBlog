@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Application.Features.Auth.Command.Login
 {
-	public class LoginCommandHandler : BaseHandler<Author>, IRequestHandler<LoginCommandRequest, ResponseContainer<LoginCommandResponse>>
+	public class LoginCommandHandler : BaseHandler<Domain.Entities.Author>, IRequestHandler<LoginCommandRequest, ResponseContainer<LoginCommandResponse>>
 	{
 		private readonly AuthRules authRules;
 		private readonly ITokenService tokenService;
@@ -32,19 +32,17 @@ namespace MyBlog.Application.Features.Auth.Command.Login
 		public async Task<ResponseContainer<LoginCommandResponse>> Handle(LoginCommandRequest request, CancellationToken cancellationToken)
 		{
 			string passwordHash = request.Password.Encrypt();
-			Author? author =await readRepository.GetAsync(x => (x.Nickname == request.NickNameOrEmailAddress || x.EmailAddress == request.NickNameOrEmailAddress) && x.Password==passwordHash,cancellationToken:cancellationToken);
+			Domain.Entities.Author? author =await readRepository.GetAsync(x => (x.Nickname == request.NickNameOrEmailAddress || x.EmailAddress == request.NickNameOrEmailAddress) && x.Password==passwordHash,cancellationToken:cancellationToken,enableTracking:true);
 			await authRules.UserNotFound(author);
 			ResponseContainer<LoginCommandResponse> response = new()
 			{
 			   Data=new()
 			};
-			// Create a token
 			JwtSecurityToken token = await tokenService.GenerateAccessToken(author,null);
 			response.Data.AccessToken= new JwtSecurityTokenHandler().WriteToken(token);
 			response.Data.RefreshToken = tokenService.GenerateRefreshToken();
 			author.RefreshToken = response.Data.RefreshToken;
-			author.Token= response.Data.AccessToken;
-			await writeRepository.UpdateAsync(author);
+			author.Token = response.Data.AccessToken;
 			await uow.SaveChangesAsync(cancellationToken);
 			response.Message= Const.Auth.SUCCESS_LOGIN;
 			return response;

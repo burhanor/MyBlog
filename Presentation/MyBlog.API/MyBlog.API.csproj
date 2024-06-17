@@ -19,6 +19,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\images\authors\" />
     <Folder Include="wwwroot\images\cards\" />
+    <Folder Include="wwwroot\images\others\" />
     <Folder Include="wwwroot\images\series\" />
     <Folder Include="wwwroot\images\posts\" />
     <Folder Include="wwwroot\images\sliders\" />

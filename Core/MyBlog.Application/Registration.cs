@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MyBlog.Application.Bases;
 using MyBlog.Application.Behaviors;
 using MyBlog.Application.Exceptions;
+using MyBlog.Application.Helpers;
 using System.Reflection;
 
 namespace MyBlog.Application
@@ -19,6 +20,7 @@ namespace MyBlog.Application
 			services.AddRulesFromAssemblyContaining(assembly, typeof(BaseRules));
 			services.AddValidatorsFromAssembly(assembly);
 			services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehavior<,>));
+			services.AddScoped<ImageHelper, ImageHelper>();
 		}
 
 		private static IServiceCollection AddRulesFromAssemblyContaining(this IServiceCollection services, Assembly assembly, Type type)
