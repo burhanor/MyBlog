@@ -7,19 +7,20 @@ using MyBlog.Application.Interfaces.AutoMapper;
 using MyBlog.Application.Models.Auth;
 using MyBlog.Application.Models;
 using MyBlog.Application.Models.Author;
+using MyBlog.Application.Features.Author.Command.UpdateAuthor;
 
 namespace MyBlog.API.Controllers
 {
 	[Asp.Versioning.ApiVersion(1)]
-	[Route("api/v{v:apiVersion}/[action]")]
+	[Route("api/v{v:apiVersion}/[controller]")]
 	[ApiController]
 	public class AuthorController : ControllerBase
 	{
 		private readonly IMediator mediator;
 		private readonly IMyMapper mapper;
 
-		public AuthorController(IMediator mediator,IMyMapper mapper)
-        {
+		public AuthorController(IMediator mediator, IMyMapper mapper)
+		{
 			this.mediator = mediator;
 			this.mapper = mapper;
 		}
@@ -27,7 +28,15 @@ namespace MyBlog.API.Controllers
 		[HttpPost]
 		public async Task<IActionResult> CreateAuthor([FromForm] AuthorModel request)
 		{
-			return await this.CreateAsync<CreateAuthorCommandRequest, ResponseContainer<CreateAuthorCommandResponse>>(mediator, mapper.Map<CreateAuthorCommandRequest,AuthorModel>(request));
+			return await this.CreateAsync<CreateAuthorCommandRequest, ResponseContainer<CreateAuthorCommandResponse>>(mediator, mapper.Map<CreateAuthorCommandRequest, AuthorModel>(request));
 		}
-    }
+
+
+		[HttpPost("{id}")]
+		public async Task<IActionResult> UpdateAuthor([FromRoute]int id,[FromForm] AuthorModel request)
+		{
+			return await this.UpdateAsync<UpdateAuthorCommandRequest, ResponseContainer<UpdateAuthorCommandResponse>>(mediator, mapper.Map<UpdateAuthorCommandRequest, AuthorModel>(request),id);
+		}
+
+	}
 }

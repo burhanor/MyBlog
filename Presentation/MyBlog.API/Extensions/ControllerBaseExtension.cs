@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MyBlog.Application.Interfaces;
 using MyBlog.Application.Models;
 
 namespace MyBlog.API.Extensions
@@ -21,7 +22,11 @@ namespace MyBlog.API.Extensions
 
 		public static async Task<IActionResult> CreateAsync<TRequest>(this ControllerBase controller, IMediator mediator, TRequest request) => await CreateOrUpdateAsync<TRequest, Unit>(controller, mediator, request);
 
-
+		public static async Task<IActionResult> UpdateAsync<TRequest, TResponse>(this ControllerBase controller, IMediator mediator, TRequest request, int id) where TRequest : class, IId, new()
+		{
+			request.Id = id;
+			return await CreateOrUpdateAsync<TRequest, TResponse>(controller, mediator, request);
+		}
 
 	}
 }

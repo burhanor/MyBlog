@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using MyBlog.Application.Bases;
 using MyBlog.Application.Consts;
+using MyBlog.Application.Extensions;
 using MyBlog.Application.Features.Auth.Rules;
 using MyBlog.Application.Features.Author.Rules;
 using MyBlog.Application.Helpers;
@@ -43,6 +44,7 @@ namespace MyBlog.Application.Features.Author.Command.CreateAuthor
 				author.ImageId = imageResponseModel.ImageId;
 				response.Data.ProfileImagePath = imageResponseModel.ImagePath;
 			}
+			author.Password = author.Password.Encrypt();
 			await writeRepository.AddAsync(author,cancellationToken);
 			await uow.SaveChangesAsync(cancellationToken);
 			if (author.Id>0)

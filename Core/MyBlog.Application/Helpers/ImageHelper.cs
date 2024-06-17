@@ -29,9 +29,9 @@ namespace MyBlog.Application.Helpers
 			this.uow = uow;
 			webRootPath = _environment.WebRootPath;
 		}
-	
 
 
+		public async Task<ImageResponseModel> CreateOrUpdateImage(IFormFile file, ImageType imageType, int id, CancellationToken cancellationToken) => id == 0 ? await CreateImage(file, imageType, cancellationToken) : await UpdateImage(file, imageType, id, cancellationToken);
 		public async Task<ImageResponseModel> CreateImage(IFormFile file, ImageType imageType,CancellationToken cancellationToken)
 		{
 			ImageResponseModel response = new();
