@@ -21,16 +21,17 @@ namespace MyBlog.Infrastructure.Tokens
 		private readonly TokenModel options=options.Value;
 		private readonly IUow uow = uow;
 	
-		public async Task<JwtSecurityToken> GenerateAccessToken(Author author, IList<string> roles)
+		public async Task<JwtSecurityToken> GenerateAccessToken(Author author, IList<string>? roles)
 		{
 			List<Claim> claims = [
 				new (ClaimTypes.NameIdentifier,author.Id.ToString()),
 				new (ClaimTypes.Name,author.Nickname ?? string.Empty),
 				new (JwtRegisteredClaimNames.Email,author.EmailAddress ?? string.Empty)
 				];
-			claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+			if (roles?.Count>0)
+				claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 			SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(options.SecretKey));
-			JwtSecurityToken token= new(
+			JwtSecurityToken token = new(
 				issuer: options.Issuer,
 				audience: options.Audience,
 				claims: claims,

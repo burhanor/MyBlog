@@ -17,5 +17,8 @@ namespace MyBlog.Application.Features.Auth.Rules
 
 		public ValueTask NicknameAlreadyTaken(Author? author) => author != null && author.Id!=0 ? throw new NicknameAlreadyTakenException() : ValueTask.CompletedTask;
 		public ValueTask NicknameAlreadyTaken(bool isTaken) => isTaken ? throw new NicknameAlreadyTakenException() : ValueTask.CompletedTask;
+
+		public ValueTask UserNotFound(Author? author) => author == null || author.Id == 0 ? throw new UserNotFoundException() : ValueTask.CompletedTask;
+
 	}
 }

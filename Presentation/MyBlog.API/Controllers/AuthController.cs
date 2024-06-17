@@ -1,16 +1,17 @@
 ﻿using Asp.Versioning;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.API.Extensions;
+using MyBlog.Application.Features.Auth.Command.Login;
 using MyBlog.Application.Features.Auth.Command.Register;
 using MyBlog.Application.Interfaces.AutoMapper;
 using MyBlog.Application.Models;
+using MyBlog.Application.Models.Auth;
 
 namespace MyBlog.API.Controllers
 {
-	[ApiVersion(1)]
-	[Route("api/v{v:apiVersion}/[controller]")]
+    [Asp.Versioning.ApiVersion(1)]
+	[Route("api/v{v:apiVersion}/[action]")]
 	[ApiController]
 
 	//Kullanıcı girişi ve kaydı için kullanılacak controller
@@ -30,6 +31,11 @@ namespace MyBlog.API.Controllers
 			return await this.CreateAsync<RegisterCommandRequest, ResponseContainer<UnitModel>>(mediator, mapper.Map<RegisterCommandRequest, RegisterModel>(model));
 		}
 
+		[HttpPost]
+		public async Task<IActionResult> Login(LoginModel model)
+		{
+			return await this.CreateAsync<LoginCommandRequest, ResponseContainer<LoginModel>>(mediator, mapper.Map<LoginCommandRequest, LoginModel>(model));
+		}	
 	
 	}
 }

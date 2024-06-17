@@ -6,7 +6,7 @@ namespace MyBlog.Application.Interfaces.Tokens
 {
 	public interface ITokenService
 	{
-		Task<JwtSecurityToken> GenerateAccessToken(Author author, IList<string> roles);
+		Task<JwtSecurityToken> GenerateAccessToken(Author author, IList<string>? roles);
 		string GenerateRefreshToken();
 		ClaimsPrincipal? GetClaimsPrincipalFromToken(string token);
 	}

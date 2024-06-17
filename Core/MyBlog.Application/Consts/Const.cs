@@ -21,8 +21,15 @@ namespace MyBlog.Application.Consts
 			public const string NICKNAME_REQUIRED = "NICKNAME_REQUIRED";
 			public const string PASSWORD_REQUIRED = "PASSWORD_REQUIRED";
 			public const string INVALID_EMAIL= "INVALID_EMAIL";
-
 			public const string AUTHOR_CREATED = "AUTHOR_CREATED";
+			public const string NICKNAME_OR_EMAIL_REQUIRED = "NICKNAME_OR_EMAIL_REQUIRED";
+			public const string USER_NOT_FOUND = "USER_NOT_FOUND";
+
+		}
+
+		public static class Auth
+		{
+			public const string SUCCESS_LOGIN = "SUCCESS_LOGIN";
 		}
 
 
