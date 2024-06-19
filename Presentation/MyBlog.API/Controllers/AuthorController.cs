@@ -8,6 +8,7 @@ using MyBlog.Application.Models.Auth;
 using MyBlog.Application.Models;
 using MyBlog.Application.Models.Author;
 using MyBlog.Application.Features.Author.Command.UpdateAuthor;
+using MyBlog.Application.Features.Author.Command.DeleteAuthor;
 
 namespace MyBlog.API.Controllers
 {
@@ -38,5 +39,10 @@ namespace MyBlog.API.Controllers
 			return await this.UpdateAsync<UpdateAuthorCommandRequest, ResponseContainer<UpdateAuthorCommandResponse>>(mediator, mapper.Map<UpdateAuthorCommandRequest, AuthorModel>(request),id);
 		}
 
+		[HttpDelete("{id}")]
+		public async Task<IActionResult> DeleteAuthor([FromRoute] int id)
+		{
+			return await this.DeleteAsync(mediator, new DeleteAuthorCommandRequest { Id = id });
+		}
 	}
 }

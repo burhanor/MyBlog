@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Commons\" />
-    <Folder Include="Features\Author\Command\DeleteAuthor\" />
     <Folder Include="Features\Author\Exceptions\" />
     <Folder Include="Features\Author\Queries\" />
     <Folder Include="Features\Auth\Exceptions\" />

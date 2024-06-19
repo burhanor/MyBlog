@@ -26,6 +26,7 @@ namespace MyBlog.Application.Consts
 			public const string AUTHOR_UPDATED = "AUTHOR_UPDATED";
 			public const string NICKNAME_OR_EMAIL_REQUIRED = "NICKNAME_OR_EMAIL_REQUIRED";
 			public const string USER_NOT_FOUND = "USER_NOT_FOUND";
+			public const string AUTHOR_DELETED = "AUTHOR_DELETED";
 
 		}
 

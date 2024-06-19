@@ -28,5 +28,16 @@ namespace MyBlog.API.Extensions
 			return await CreateOrUpdateAsync<TRequest, TResponse>(controller, mediator, request);
 		}
 
+
+		public static async Task<IActionResult> DeleteAsync<T>(this ControllerBase controller, IMediator mediator, T request)
+		{
+			if (request == null)
+				return controller.NoContent();
+			await mediator.Send(request);
+			return controller.NoContent();
+		}
+
+
+
 	}
 }
