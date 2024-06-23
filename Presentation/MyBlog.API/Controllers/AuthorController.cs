@@ -12,6 +12,7 @@ using MyBlog.Application.Features.Author.Command.DeleteAuthor;
 using Azure.Core;
 using MyBlog.Application.Features.Author.Command.ChangePassword;
 using Microsoft.AspNetCore.Authorization;
+using MyBlog.Application.Features.Author.Command.ChangeAvatar;
 
 namespace MyBlog.API.Controllers
 {
@@ -59,6 +60,18 @@ namespace MyBlog.API.Controllers
 				Password = password
 			};
 			return await this.UpdateAsync<ChangePasswordCommandRequest, ResponseContainer<ChangePasswordCommandResponse>>(mediator,request,0);
+
+		}
+
+		[HttpPost]
+		[Route("change-avatar")]
+		public async Task<IActionResult> ChangeAvatar(IFormFile image)
+		{
+			ChangeAvatarCommandRequest request = new()
+			{
+				Image = image
+			};
+			return await this.UpdateAsync<ChangeAvatarCommandRequest, ResponseContainer<ChangeAvatarCommandResponse>>(mediator, request, 0);
 
 		}
 
