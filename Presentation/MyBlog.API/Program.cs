@@ -24,6 +24,29 @@ builder.Services.AddSwaggerGen(options =>
 		Title = "BLOG API",
 		Description = "CQRS - Mediatr Blog API"
 	});
+	options.AddSecurityDefinition("Bearer", new()
+	{
+		 BearerFormat = "JWT",
+		 Description = "JWT Authorization header using the Bearer scheme",
+		 Name = "Authorization",
+		 In = ParameterLocation.Header,
+		 Type = SecuritySchemeType.ApiKey,
+		 Scheme = "Bearer"
+	});
+	options.AddSecurityRequirement(new()
+	{
+		{
+			new OpenApiSecurityScheme
+			{
+				Reference = new OpenApiReference
+				{
+					Type = ReferenceType.SecurityScheme,
+					Id = "Bearer"
+				}
+			},
+			Array.Empty<string>()
+		}
+	});
 
 });
 

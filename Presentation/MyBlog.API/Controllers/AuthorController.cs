@@ -9,9 +9,13 @@ using MyBlog.Application.Models;
 using MyBlog.Application.Models.Author;
 using MyBlog.Application.Features.Author.Command.UpdateAuthor;
 using MyBlog.Application.Features.Author.Command.DeleteAuthor;
+using Azure.Core;
+using MyBlog.Application.Features.Author.Command.ChangePassword;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyBlog.API.Controllers
 {
+	[Authorize]
 	[Asp.Versioning.ApiVersion(1)]
 	[Route("api/v{v:apiVersion}/[controller]")]
 	[ApiController]
@@ -44,5 +48,19 @@ namespace MyBlog.API.Controllers
 		{
 			return await this.DeleteAsync(mediator, new DeleteAuthorCommandRequest { Id = id });
 		}
+
+
+		[HttpPost]
+		[Route("change-password")]
+		public async Task<IActionResult> ChangePassword(string password)
+		{
+			ChangePasswordCommandRequest request = new()
+			{
+				Password = password
+			};
+			return await this.UpdateAsync<ChangePasswordCommandRequest, ResponseContainer<ChangePasswordCommandResponse>>(mediator,request,0);
+
+		}
+
 	}
 }
