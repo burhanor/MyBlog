@@ -27,4 +27,20 @@ namespace MyBlog.Application.Bases
 			writeRepository = uow.GetWriteRepository<T>();
 		}
 	}
+
+	public class BaseHandler
+	{
+		public readonly IMyMapper mapper;
+		public readonly IUow uow;
+		public readonly IHttpContextAccessor httpContextAccessor;
+		public readonly int userId = 0;
+		public BaseHandler(IUow uow, IMyMapper mapper, IHttpContextAccessor httpContextAccessor) : base()
+		{
+			this.uow = uow;
+			this.mapper = mapper;
+			this.httpContextAccessor = httpContextAccessor;
+			if (httpContextAccessor.HttpContext.User.Identity != null)
+				userId = httpContextAccessor.HttpContext.User.Identity.IsAuthenticated ? Convert.ToInt32(httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value) : 0;
+		}
+	}
 }

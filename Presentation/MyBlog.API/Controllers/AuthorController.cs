@@ -13,6 +13,8 @@ using Azure.Core;
 using MyBlog.Application.Features.Author.Command.ChangePassword;
 using Microsoft.AspNetCore.Authorization;
 using MyBlog.Application.Features.Author.Command.ChangeAvatar;
+using MyBlog.Application.Features.Author.Queries.GetAuthors;
+using MyBlog.Application.Features.Author.Queries.GetAuthor;
 
 namespace MyBlog.API.Controllers
 {
@@ -72,7 +74,23 @@ namespace MyBlog.API.Controllers
 				Image = image
 			};
 			return await this.UpdateAsync<ChangeAvatarCommandRequest, ResponseContainer<ChangeAvatarCommandResponse>>(mediator, request, 0);
+		}
 
+
+		[HttpGet]
+		[AllowAnonymous]
+		public async Task<IActionResult> GetAuthors()
+		{
+			GetAuthorsQueryRequest request = new();
+			return await this.GetAsync(mediator, request);
+		}
+
+		[HttpGet("{id}")]
+		[AllowAnonymous]
+		public async Task<IActionResult> GetAuthor([FromRoute] int id)
+		{
+			GetAuthorQueryRequest request = new(id);
+			return await this.GetByIdAsync(mediator, request);
 		}
 
 	}

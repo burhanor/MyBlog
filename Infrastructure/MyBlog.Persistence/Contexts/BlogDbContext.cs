@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyBlog.Domain.Entities;
+using MyBlog.Domain.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,8 +36,12 @@ namespace MyBlog.Persistence.Contexts
 		public DbSet<Slider> Sliders { get; set; }
 		public DbSet<SocialLink> SocialLinks { get; set; }
 		public DbSet<Tag> Tags { get; set; }
-		
 
+
+		#endregion
+
+		#region Views
+		public DbSet<AuthorSummary> AuthorSummaries { get; set; }
 		#endregion
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

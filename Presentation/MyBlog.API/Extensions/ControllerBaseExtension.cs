@@ -36,7 +36,22 @@ namespace MyBlog.API.Extensions
 			await mediator.Send(request);
 			return controller.NoContent();
 		}
+		public static async Task<IActionResult> GetByIdAsync<TRequest>(this ControllerBase controller, IMediator mediator, TRequest request)
+		{
+			if (request == null)
+				return controller.NotFound();
+			var response = await mediator.Send(request);
+			if (response == null)
+				return controller.NotFound();
+			return controller.Ok(response);
+		}
 
+		public static async Task<IActionResult> GetAsync<TRequest>(this ControllerBase controller, IMediator mediator, TRequest request)
+		{
+			if (request == null)
+				return controller.NotFound();
+			return controller.Ok(await mediator.Send(request));
+		}
 
 
 	}

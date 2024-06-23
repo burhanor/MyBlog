@@ -10,7 +10,7 @@ namespace MyBlog.Application.Exceptions.AuthorExceptions
 {
 	public class UserNotFoundException:BaseException
 	{
-        public UserNotFoundException():base(Const.Author.USER_NOT_FOUND)
+        public UserNotFoundException():base(Const.Author.AUTHOR_NOT_FOUND)
         {
             
         }
