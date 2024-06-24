@@ -14,7 +14,7 @@ namespace MyBlog.Domain.Views
 		public string EmailAddress { get; set; } = string.Empty;
 		public string NickName { get; set; } = string.Empty;
 		public string Summary { get; set; } = string.Empty;
-		public string Path { get; set; } = string.Empty;
+		public string? Path { get; set; } = string.Empty;
 		public AuthorType AuthorType { get; set; }
 	}
 }

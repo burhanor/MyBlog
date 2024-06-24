@@ -79,9 +79,9 @@ namespace MyBlog.API.Controllers
 
 		[HttpGet]
 		[AllowAnonymous]
-		public async Task<IActionResult> GetAuthors()
+		public async Task<IActionResult> GetAuthors([FromQuery] GetAuthorsQueryRequest request)
 		{
-			GetAuthorsQueryRequest request = new();
+			request ??= new();
 			return await this.GetAsync(mediator, request);
 		}
 
