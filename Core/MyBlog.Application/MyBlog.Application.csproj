@@ -10,8 +10,6 @@
     <Folder Include="Commons\" />
     <Folder Include="Features\Author\Exceptions\" />
     <Folder Include="Features\Auth\Exceptions\" />
-    <Folder Include="Features\Category\Command\DeleteCategory\" />
-    <Folder Include="Features\Category\Command\UpdateCategory\" />
     <Folder Include="Features\Category\Exceptions\" />
     <Folder Include="Features\Category\Queries\" />
   </ItemGroup>

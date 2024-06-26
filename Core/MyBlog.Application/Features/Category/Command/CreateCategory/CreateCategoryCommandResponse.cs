@@ -9,5 +9,6 @@ namespace MyBlog.Application.Features.Category.Command.CreateCategory
 	public class CreateCategoryCommandResponse
 	{
         public int Id { get; set; }
-    }
+		public string ParentName { get; set; } = string.Empty;
+	}
 }

@@ -33,6 +33,16 @@ namespace MyBlog.Application.Features.Category.Rules
 			await ValueTask.CompletedTask;
 		}
 
+		public async ValueTask CategoryAlreadyExists(bool isExist)
+		{
+			if (isExist)
+			{
+				throw new CategoryAlreadyExistException();
+			}
+			await ValueTask.CompletedTask;
+		}
+
+
 		public async ValueTask CategoryParentCannotBeSame(int categoryId,int parentId)
 		{
 			if(categoryId==parentId)
@@ -49,23 +59,19 @@ namespace MyBlog.Application.Features.Category.Rules
 			await ValueTask.CompletedTask;
 		}
 
-		public async ValueTask CheckCategoryCircular(int categoryId,int parentCategoryId)
-		{
-			if (parentCategoryId == 0)
-				await ValueTask.CompletedTask;
-			else
-			{
-				if (categoryId == parentCategoryId)
-					throw new CategoryParentCannotBeSameException();
-				//TODO: Check for circular reference
-			}
-			
-		}
+	
 
 		public async ValueTask DisplayOrderMustBePositive(int displayOrder)
 		{
 			if (displayOrder < 0)
 				throw new DisplayOrderCannotBeNegativeException();
+			await ValueTask.CompletedTask;
+		}
+
+		public async ValueTask CategoryHasChild(bool hasChild) 
+		{
+			if (hasChild)
+				throw new CategoryHasChildException();
 			await ValueTask.CompletedTask;
 		}
 	}

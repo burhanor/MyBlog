@@ -28,15 +28,17 @@ namespace MyBlog.Application.Features.Category.Command.CreateCategory
 			await categoryRules.DisplayOrderMustBePositive(request.DisplayOrder);
 			Domain.Entities.Category? category = await readRepository.GetAsync(m => m.Name == request.Name && m.ParentId == request.ParentId, cancellationToken: cancellationToken);
 			await categoryRules.CategoryAlreadyExists(category);
+			string parentName = string.Empty;
 			if (request.ParentId != 0)
 			{
 				Domain.Entities.Category? parentCategory = await readRepository.GetAsync(m => m.Id == request.ParentId, cancellationToken: cancellationToken);
 				await categoryRules.ParentCategoryNotFound(parentCategory);
+				parentName = parentCategory.Name;
 			}
 		    category = mapper.Map<Domain.Entities.Category,CreateCategoryCommandRequest>(request);
 			await writeRepository.AddAsync(category, cancellationToken);
 			await uow.SaveChangesAsync(cancellationToken);
-			response.Data = new CreateCategoryCommandResponse { Id = category.Id };
+			response.Data = new CreateCategoryCommandResponse { Id = category.Id ,ParentName=parentName};
 			response.Success = true;
 			return response;
 		}
