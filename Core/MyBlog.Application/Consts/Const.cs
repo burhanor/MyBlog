@@ -70,6 +70,7 @@ namespace MyBlog.Application.Consts
 			public const string IMAGE_CANNOT_BE_NULL = "IMAGE_CANNOT_BE_NULL";
 			public const string NICKNAME_IS_NOT_VALID = "NICKNAME_IS_NOT_VALID";
 			public const string DISPLAY_ORDER_MUST_BE_GREATER_THAN_ZERO = "DISPLAY_ORDER_MUST_BE_GREATER_THAN_ZERO";
+			public const string URL_MUST_BE_UNIQUE = "URL_MUST_BE_UNIQUE";
 		}
 
 	}

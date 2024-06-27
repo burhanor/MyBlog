@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using MyBlog.Application.Bases;
+using MyBlog.Application.Commons.Rules;
 using MyBlog.Application.Features.Category.Rules;
 using MyBlog.Application.Interfaces.AutoMapper;
 using MyBlog.Application.Interfaces.UnitOfWork;
@@ -28,6 +29,9 @@ namespace MyBlog.Application.Features.Category.Command.CreateCategory
 			await categoryRules.DisplayOrderMustBePositive(request.DisplayOrder);
 			Domain.Entities.Category? category = await readRepository.GetAsync(m => m.Name == request.Name && m.ParentId == request.ParentId, cancellationToken: cancellationToken);
 			await categoryRules.CategoryAlreadyExists(category);
+			bool urlIsExist = await readRepository.ExistAsync(m => m.Url == request.Url, cancellationToken: cancellationToken);
+			await categoryRules.UrlMustBeUnique(urlIsExist);
+
 			string parentName = string.Empty;
 			if (request.ParentId != 0)
 			{
@@ -35,6 +39,7 @@ namespace MyBlog.Application.Features.Category.Command.CreateCategory
 				await categoryRules.ParentCategoryNotFound(parentCategory);
 				parentName = parentCategory.Name;
 			}
+
 		    category = mapper.Map<Domain.Entities.Category,CreateCategoryCommandRequest>(request);
 			await writeRepository.AddAsync(category, cancellationToken);
 			await uow.SaveChangesAsync(cancellationToken);

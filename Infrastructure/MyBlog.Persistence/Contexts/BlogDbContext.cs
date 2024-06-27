@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyBlog.Domain.Entities;
 using MyBlog.Domain.Views;
+using MyBlog.Persistence.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,7 @@ namespace MyBlog.Persistence.Contexts
 
 		#region Views
 		public DbSet<AuthorSummary> AuthorSummaries { get; set; }
+		public DbSet<CategoryWithParentName> CategorriesWithParentName { get; set; }
 		#endregion
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

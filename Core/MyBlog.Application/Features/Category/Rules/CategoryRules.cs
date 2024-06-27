@@ -1,4 +1,5 @@
 ﻿using MyBlog.Application.Bases;
+using MyBlog.Application.Commons.Rules;
 using MyBlog.Application.Exceptions.CategoryExceptions;
 using MyBlog.Application.Exceptions.CommonExceptions;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Application.Features.Category.Rules
 {
-	public class CategoryRules:BaseRules
+	public class CategoryRules:CommonRules
 	{
 
 		public CategoryRules() { }

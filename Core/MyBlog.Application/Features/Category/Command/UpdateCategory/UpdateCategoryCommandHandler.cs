@@ -32,7 +32,8 @@ namespace MyBlog.Application.Features.Category.Command.UpdateCategory
 			bool isExist = await readRepository.ExistAsync(m => m.Name == request.Name && m.ParentId == request.ParentId && m.Id != request.Id, cancellationToken: cancellationToken);
 			await categoryRules.CategoryAlreadyExists(isExist);
 			await categoryRules.CategoryParentCannotBeSame(request.Id,request.ParentId);
-
+			bool urlIsExist = await readRepository.ExistAsync(m => m.Url == request.Url && m.Id != request.Id, cancellationToken: cancellationToken);
+			await categoryRules.UrlMustBeUnique(urlIsExist);
 			await CheckCircularReference(request.Id,request.ParentId,cancellationToken);
 
 			string parentName = string.Empty;

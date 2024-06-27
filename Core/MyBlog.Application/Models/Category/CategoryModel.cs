@@ -10,7 +10,6 @@ namespace MyBlog.Application.Models.Category
 	{
         public int ParentId { get; set; }
         public string Name { get; set; } = string.Empty;
-        public string Fuzzy { get; set; } = string.Empty;
         public int DisplayOrder { get; set; }
         public string IconContent { get; set; } = string.Empty;
         public string Url { get; set; } = string.Empty;

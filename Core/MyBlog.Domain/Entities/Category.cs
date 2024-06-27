@@ -13,7 +13,7 @@ namespace MyBlog.Domain.Entities
         public int ParentId { get; set; }
         public int DisplayOrder { get; set; }
         public string Url { get; set; } = string.Empty;
-        public string IconContent { get; set; } = string.Empty;
+		public string IconContent { get; set; } = string.Empty;
         public ICollection<PostCategory> PostCategories { get; set; }
     }
 }
