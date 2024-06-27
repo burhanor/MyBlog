@@ -45,9 +45,10 @@ namespace MyBlog.Persistence.Contexts
 		public DbSet<AuthorSummary> AuthorSummaries { get; set; }
 		public DbSet<CategoryWithParentName> CategorriesWithParentName { get; set; }
 		public DbSet<CardSummary> CardSummaries { get; set; }
+        public DbSet<SliderSummary> SliderSummaries { get; set; }
 
-		#endregion
-		protected override void OnModelCreating(ModelBuilder modelBuilder)
+        #endregion
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 			modelBuilder.ApplyConfigurationsFromAssembly(typeof(BlogDbContext).Assembly);

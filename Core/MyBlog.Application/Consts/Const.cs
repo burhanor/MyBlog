@@ -66,7 +66,20 @@ namespace MyBlog.Application.Consts
 			public const string CARD_URL_MAX_LENGTH = "CARD_URL_MAX_LENGTH";
 
 		}
-
+		public static class Slider
+		{
+			public const string SLIDER_CREATED = "SLIDER_CREATED";
+			public const string SLIDER_UPDATED = "SLIDER_UPDATED";
+			public const string SLIDER_DELETED = "SLIDER_DELETED";
+			public const string SLIDER_NOT_FOUND = "SLIDER_NOT_FOUND";
+			public const string SLIDER_ALREADY_EXISTS = "SLIDER_ALREADY_EXISTS";
+			public const string SLIDER_TITLE_REQUIRED = "SLIDER_TITLE_REQUIRED";
+			public const string SLIDER_TITLE_MAX_LENGTH = "SLIDER_TITLE_MAX_LENGTH";
+			public const string SLIDER_CONTENT_REQUIRED = "SLIDER_CONTENT_REQUIRED";
+			public const string SLIDER_CONTENT_MAX_LENGTH = "SLIDER_CONTENT_MAX_LENGTH";
+			public const string SLIDER_URL_REQUIRED = "SLIDER_URL_REQUIRED";
+			public const string SLIDER_URL_MAX_LENGTH = "SLIDER_URL_MAX_LENGTH";
+		}
 
 		public static class Tag
 		{
