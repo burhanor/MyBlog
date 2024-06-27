@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyBlog.Application.Features.Category.Command.UpdateCategory
+namespace MyBlog.Application.Features.Tag.Command.CreateTag
 {
-	public class UpdateCategoryCommandValidator:AbstractValidator<UpdateCategoryCommandRequest>
+	public class CreateTagCommandValidator:AbstractValidator<CreateTagCommandRequest>
 	{
-        public UpdateCategoryCommandValidator()
+        public CreateTagCommandValidator()
         {
 			RuleFor(m => m.Name)
 				.NotEmpty().WithMessage(Const.Category.CATEGORY_NAME_REQUIRED)

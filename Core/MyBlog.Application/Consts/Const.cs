@@ -51,6 +51,20 @@ namespace MyBlog.Application.Consts
 		
 		}
 
+
+		public static class Tag
+		{
+			public const string TAG_CREATED = "TAG_CREATED";	
+			public const string TAG_UPDATED = "TAG_UPDATED";
+			public const string TAG_DELETED = "TAG_DELETED";
+			public const string TAG_NOT_FOUND = "TAG_NOT_FOUND";
+			public const string TAG_ALREADY_EXISTS = "TAG_ALREADY_EXISTS";
+			public const string TAG_NAME_REQUIRED = "TAG_NAME_REQUIRED";
+			public const string TAG_NAME_MAX_LENGTH = "TAG_NAME_MAX_LENGTH";
+			public const string TAG_URL_REQUIRED = "TAG_URL_REQUIRED";
+			public const string TAG_URL_MAX_LENGTH = "TAG_URL_MAX_LENGTH";
+		}
+
 		public static class Auth
 		{
 			public const string SUCCESS_LOGIN = "SUCCESS_LOGIN";

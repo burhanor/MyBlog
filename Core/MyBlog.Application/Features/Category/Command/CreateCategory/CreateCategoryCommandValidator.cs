@@ -15,7 +15,7 @@ namespace MyBlog.Application.Features.Category.Command.CreateCategory
             RuleFor(m => m.Name)
                 .NotEmpty().WithMessage(Const.Category.CATEGORY_NAME_REQUIRED)
                 .MaximumLength(100).WithMessage(Const.Category.CATEGORY_NAME_MAX_LENGTH);
-			RuleFor(m => m.Name)
+			RuleFor(m => m.Url)
 				.NotEmpty().WithMessage(Const.Category.CATEGORY_URL_REQUIRED)
 				.MaximumLength(450).WithMessage(Const.Category.CATEGORY_URL_MAX_LENGTH);
 		}
