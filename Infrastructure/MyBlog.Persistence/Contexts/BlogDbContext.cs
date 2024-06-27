@@ -46,6 +46,7 @@ namespace MyBlog.Persistence.Contexts
 		public DbSet<CategoryWithParentName> CategorriesWithParentName { get; set; }
 		public DbSet<CardSummary> CardSummaries { get; set; }
         public DbSet<SliderSummary> SliderSummaries { get; set; }
+		public DbSet<MenuWithParentName> MenuWithParentNames { get; set; }
 
         #endregion
         protected override void OnModelCreating(ModelBuilder modelBuilder)

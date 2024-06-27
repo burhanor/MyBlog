@@ -50,7 +50,25 @@ namespace MyBlog.Application.Consts
 			public const string CATEGORY_URL_MAX_LENGTH = "CATEGORY_URL_MAX_LENGTH";
 		
 		}
+		public static class Menu
+		{
+			public const string MENU_CREATED = "MENU_CREATED";
+			public const string MENU_UPDATED = "MENU_UPDATED";
+			public const string MENU_DELETED = "MENU_DELETED";
+			public const string MENU_NOT_FOUND = "MENU_NOT_FOUND";
+			public const string MENU_ALREADY_EXISTS = "MENU_ALREADY_EXISTS";
+			public const string MENU_NAME_REQUIRED = "MENU_NAME_REQUIRED";
+			public const string MENU_NAME_MAX_LENGTH = "MENU_NAME_MAX_LENGTH";
+			public const string MENU_URL_REQUIRED = "MENU_URL_REQUIRED";
+			public const string MENU_URL_MAX_LENGTH = "MENU_URL_MAX_LENGTH";
+			public const string MENU_DISPLAY_ORDER_REQUIRED = "MENU_DISPLAY_ORDER_REQUIRED";
+			public const string MENU_DISPLAY_ORDER_MUST_BE_GREATER_THAN_ZERO = "MENU_DISPLAY_ORDER_MUST_BE_GREATER_THAN_ZERO";
+			public const string PARENT_MENU_NOT_FOUND = "PARENT_MENU_NOT_FOUND";
+			public const string MENU_CIRCULAR_REFERENCE = "MENU_CIRCULAR_REFERENCE";
+			public const string MENU_HAS_CHILD = "MENU_HAS_CHILD";
+			public const string MENU_PARENT_CANNOT_BE_SAME = "MENU_PARENT_CANNOT_BE_SAME";
 
+		}
 		public static class Card
 		{
 			public const string CARD_CREATED = "CARD_CREATED";
