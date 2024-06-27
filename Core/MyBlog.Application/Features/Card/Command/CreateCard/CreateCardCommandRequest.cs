@@ -1,0 +1,15 @@
+﻿using MediatR;
+using MyBlog.Application.Models;
+using MyBlog.Application.Models.Card;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MyBlog.Application.Features.Card.Command.CreateCard
+{
+	public class CreateCardCommandRequest:CardModel,IRequest<ResponseContainer<CreateCardCommandResponse>>
+	{
+    }
+}

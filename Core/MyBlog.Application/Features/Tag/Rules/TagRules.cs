@@ -37,12 +37,7 @@ namespace MyBlog.Application.Features.Tag.Rules
 			}
 			await ValueTask.CompletedTask;
 		}
-		public async ValueTask DisplayOrderMustBePositive(int displayOrder)
-		{
-			if (displayOrder < 0)
-				throw new DisplayOrderCannotBeNegativeException();
-			await ValueTask.CompletedTask;
-		}
+
 
 	}
 }

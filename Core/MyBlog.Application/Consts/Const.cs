@@ -51,6 +51,22 @@ namespace MyBlog.Application.Consts
 		
 		}
 
+		public static class Card
+		{
+			public const string CARD_CREATED = "CARD_CREATED";
+			public const string CARD_UPDATED = "CARD_UPDATED";
+			public const string CARD_DELETED = "CARD_DELETED";
+			public const string CARD_NOT_FOUND = "CARD_NOT_FOUND";
+			public const string CARD_ALREADY_EXISTS = "CARD_ALREADY_EXISTS";
+			public const string CARD_TITLE_REQUIRED = "CARD_TITLE_REQUIRED";
+			public const string CARD_TITLE_MAX_LENGTH = "CARD_TITLE_MAX_LENGTH";
+			public const string CARD_CONTENT_REQUIRED = "CARD_CONTENT_REQUIRED";
+			public const string CARD_CONTENT_MAX_LENGTH = "CARD_CONTENT_MAX_LENGTH";
+			public const string CARD_URL_REQUIRED = "CARD_URL_REQUIRED";
+			public const string CARD_URL_MAX_LENGTH = "CARD_URL_MAX_LENGTH";
+
+		}
+
 
 		public static class Tag
 		{

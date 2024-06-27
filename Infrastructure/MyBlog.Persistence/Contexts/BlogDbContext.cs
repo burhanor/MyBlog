@@ -44,6 +44,8 @@ namespace MyBlog.Persistence.Contexts
 		#region Views
 		public DbSet<AuthorSummary> AuthorSummaries { get; set; }
 		public DbSet<CategoryWithParentName> CategorriesWithParentName { get; set; }
+		public DbSet<CardSummary> CardSummaries { get; set; }
+
 		#endregion
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

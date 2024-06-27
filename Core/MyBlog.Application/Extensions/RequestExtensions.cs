@@ -1,4 +1,5 @@
 ﻿using MyBlog.Application.Features.Author.Queries.GetAuthors;
+using MyBlog.Application.Features.Card.Queries.GetCards;
 using MyBlog.Application.Features.Category.Queries.GetCategories;
 using MyBlog.Application.Features.Tag.Queries.GetTags;
 using System;
@@ -25,6 +26,13 @@ namespace MyBlog.Application.Extensions
 			return request.PageSize == null && request.PageNumber == null && request.OrderBy == null && request.Search == null;
 		}
 		public static bool IsNullOrEmpty(this GetTagsQueryRequest request)
+		{
+			if (request == null)
+				return true;
+			return request.PageSize == null && request.PageNumber == null && request.OrderBy == null && request.Search == null;
+		}
+
+		public static bool IsNullOrEmpty(this GetCardsQueryRequest request)
 		{
 			if (request == null)
 				return true;
