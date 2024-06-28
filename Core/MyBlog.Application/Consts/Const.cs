@@ -50,6 +50,20 @@ namespace MyBlog.Application.Consts
 			public const string CATEGORY_URL_MAX_LENGTH = "CATEGORY_URL_MAX_LENGTH";
 		
 		}
+
+		public static class Series
+		{
+			public const string SERIES_CREATED = "SERIES_CREATED";
+			public const string SERIES_UPDATED = "SERIES_UPDATED";
+			public const string SERIES_DELETED = "SERIES_DELETED";
+			public const string SERIES_NOT_FOUND = "SERIES_NOT_FOUND";
+			public const string SERIES_ALREADY_EXISTS = "SERIES_ALREADY_EXISTS";
+			public const string SERIES_TITLE_REQUIRED = "SERIES_TITLE_REQUIRED";
+			public const string SERIES_TITLE_MAX_LENGTH = "SERIES_TITLE_MAX_LENGTH";
+			public const string SERIES_URL_REQUIRED = "SERIES_URL_REQUIRED";
+			public const string SERIES_URL_MAX_LENGTH = "SERIES_URL_MAX_LENGTH";
+
+		}
 		public static class Menu
 		{
 			public const string MENU_CREATED = "MENU_CREATED";

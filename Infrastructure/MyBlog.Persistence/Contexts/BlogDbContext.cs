@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyBlog.Domain.Entities;
+using MyBlog.Domain.Enums;
 using MyBlog.Domain.Views;
 using MyBlog.Persistence.Migrations;
 using System;
@@ -47,9 +48,13 @@ namespace MyBlog.Persistence.Contexts
 		public DbSet<CardSummary> CardSummaries { get; set; }
         public DbSet<SliderSummary> SliderSummaries { get; set; }
 		public DbSet<MenuWithParentName> MenuWithParentNames { get; set; }
+		public DbSet<SeriesSummary> SeriesSummaries { get; set; }
 
-        #endregion
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+		#endregion
+
+
+	
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 			modelBuilder.ApplyConfigurationsFromAssembly(typeof(BlogDbContext).Assembly);

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyBlog.Persistence.Contexts;
 
@@ -11,9 +12,11 @@ using MyBlog.Persistence.Contexts;
 namespace MyBlog.Persistence.Migrations
 {
     [DbContext(typeof(BlogDbContext))]
-    partial class BlogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240628162221_vwSeriesSummary")]
+    partial class vwSeriesSummary
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -630,10 +633,6 @@ namespace MyBlog.Persistence.Migrations
             modelBuilder.Entity("MyBlog.Domain.Views.SeriesSummary", b =>
                 {
                     b.Property<string>("AuthorName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AuthorPath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
