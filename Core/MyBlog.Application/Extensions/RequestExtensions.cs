@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyBlog.Application.Features.Post.Queries.GetPosts;
+using MyBlog.Application.Features.Post.Queries.GetPublishedPosts;
 
 namespace MyBlog.Application.Extensions
 {
@@ -61,6 +63,17 @@ namespace MyBlog.Application.Extensions
 				return true;
 			return request.PageSize == null && request.PageNumber == null && request.OrderBy == null && request.Search == null;
 		}
-
+		public static bool IsNullOrEmpty(this GetPostsQueryRequest request)
+		{
+			if (request == null)
+				return true;
+			return request.PageSize == null && request.PageNumber == null && request.OrderBy == null && request.Search == null;
+		}
+		public static bool IsNullOrEmpty(this GetPublishedPostsQueryRequest request)
+		{
+			if (request == null)
+				return true;
+			return request.PageSize == null && request.PageNumber == null && request.OrderBy == null && request.Search == null;
+		}
 	}
 }

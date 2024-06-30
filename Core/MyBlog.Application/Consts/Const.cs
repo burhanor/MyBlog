@@ -51,6 +51,23 @@ namespace MyBlog.Application.Consts
 		
 		}
 
+		public static class Post
+		{
+			public const string POST_CREATED = "POST_CREATED";
+			public const string POST_UPDATED = "POST_UPDATED";
+			public const string POST_DELETED = "POST_DELETED";
+			public const string POST_NOT_FOUND = "POST_NOT_FOUND";
+			public const string POST_ALREADY_EXISTS = "POST_ALREADY_EXISTS";
+			public const string POST_TITLE_REQUIRED = "POST_TITLE_REQUIRED";
+			public const string POST_TITLE_MAX_LENGTH = "POST_TITLE_MAX_LENGTH";
+			public const string POST_CONTENT_REQUIRED = "POST_CONTENT_REQUIRED";
+			public const string POST_CONTENT_MAX_LENGTH = "POST_CONTENT_MAX_LENGTH";
+			public const string POST_URL_REQUIRED = "POST_URL_REQUIRED";
+			public const string POST_URL_MAX_LENGTH = "POST_URL_MAX_LENGTH";
+			public const string POST_CATEGORY_REQUIRED = "POST_CATEGORY_REQUIRED";
+			public const string POST_AUTHOR_REQUIRED = "POST_AUTHOR_REQUIRED";
+		}
+
 		public static class Series
 		{
 			public const string SERIES_CREATED = "SERIES_CREATED";
