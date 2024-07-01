@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using MyBlog.Application.Bases;
+using MyBlog.Application.Consts;
+using MyBlog.Application.Features.Post.Rules;
 using MyBlog.Application.Features.Post.Rules;
 using MyBlog.Application.Interfaces.AutoMapper;
 using MyBlog.Application.Interfaces.UnitOfWork;
@@ -24,7 +26,13 @@ namespace MyBlog.Application.Features.Post.Command.DeletePost
 
 		public async Task<ResponseContainer<Unit>> Handle(DeletePostCommandRequest request, CancellationToken cancellationToken)
 		{
-			ResponseContainer<Unit> response= new();	
+			ResponseContainer<Unit> response= new();
+			Domain.Entities.Post? post = await readRepository.GetAsync(m => m.Id == request.Id, cancellationToken: cancellationToken);
+			await postRules.PostNotFound(post);
+			await writeRepository.DeleteAsync(post, cancellationToken);
+			await uow.SaveChangesAsync(cancellationToken);
+			response.Success = true;
+			response.Message = Const.Post.POST_DELETED;
 			return response;
 		}
 	}
