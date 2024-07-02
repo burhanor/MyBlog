@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyBlog.API.Extensions;
 using MyBlog.Application.Features.PostCategory.Command.CreatePostCategory;
 using MyBlog.Application.Features.PostCategory.Command.DeletePostCategory;
-using MyBlog.Application.Features.PostCategory.Command.UpdatePostCategory;
 using MyBlog.Application.Features.PostCategory.Queries.GetPostCategories;
-using MyBlog.Application.Features.PostCategory.Queries.GetPostCategory;
 using MyBlog.Application.Interfaces.AutoMapper;
 using MyBlog.Application.Models;
 using MyBlog.Application.Models.PostCategory;
@@ -28,36 +26,29 @@ namespace MyBlog.API.Controllers
 			this.mapper = mapper;
 		}
 
-		[HttpGet("{postId}/category/{categoryId}")]
+	
+		[HttpGet("{postId}/categories")]
 		[AllowAnonymous]
-		public async Task<IActionResult> GetPostCategory([FromRoute] int postId, [FromRoute] int categoryId)
+		public async Task<IActionResult> GetPostCategories([FromRoute] int postId)
 		{
-			return await this.GetByIdAsync(mediator, new GetPostCategoryQueryRequest { CategoryId = categoryId,PostId=postId });
-		}
-		[HttpGet("category")]
-		[AllowAnonymous]
-		public async Task<IActionResult> GetPostCategorys([FromQuery] GetPostCategoriesQueryRequest request)
-		{
+			GetPostCategoriesQueryRequest request = new() { PostId = postId };
 			return await this.GetAsync(mediator, request);
 		}
 
 
-		[HttpPost("category")]
-		public async Task<IActionResult> CreatePostCategory([FromForm] PostCategoryModel request)
+		[HttpPost("{postId}/categories")]
+		public async Task<IActionResult> CreatePostCategory([FromRoute] int postId, [FromForm] int categoryId )
 		{
+			PostCategoryModel request= new() { CategoryId = categoryId, PostId = postId };
 			return await this.CreateAsync<CreatePostCategoryCommandRequest, ResponseContainer<CreatePostCategoryCommandResponse>>(mediator, mapper.Map<CreatePostCategoryCommandRequest, PostCategoryModel>(request));
 		}
 
-		[HttpDelete("{postId}/category/{categoryId}")]
+		[HttpDelete("{postId}/categories/{categoryId}")]
 		public async Task<IActionResult> DeletePostCategory([FromRoute] int postId, [FromRoute] int categoryId)
 		{
 			return await this.DeleteAsync(mediator, new DeletePostCategoryCommandRequest { CategoryId = categoryId,PostId= postId });
 		}
-		[HttpPost("{postId}/category/{categoryId}")]
-		public async Task<IActionResult> UpdatePostCategory([FromForm] PostCategoryModel request, [FromRoute] int postId, [FromRoute] int categoryId)
-		{
-			return await this.UpdateAsync<UpdatePostCategoryCommandRequest, ResponseContainer<UpdatePostCategoryCommandResponse>>(mediator, mapper.Map<UpdatePostCategoryCommandRequest, PostCategoryModel>(request), postId);
-		}
+	
 
 
 	}

@@ -25,7 +25,7 @@ namespace MyBlog.Application.Features.Author.Queries.GetAuthors
 		{
 			ResponseContainer<IList<GetAuthorsQueryResponse>> response = new();
 			if (request.IsNullOrEmpty()) {
-				response.Data = await uow.GetReadRepository<AuthorSummary>().GetAllAsync(cancellationToken:cancellationToken,select:m=>new GetAuthorsQueryResponse
+				response.Data = await uow.GetReadRepository<AuthorSummary>().GetAllAsyncAs(cancellationToken:cancellationToken,select:m=>new GetAuthorsQueryResponse
 				{
 					AuthorType = m.AuthorType,
 					EmailAddress = m.EmailAddress,

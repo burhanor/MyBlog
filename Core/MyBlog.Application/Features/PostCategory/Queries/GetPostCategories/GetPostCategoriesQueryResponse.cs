@@ -8,5 +8,7 @@ namespace MyBlog.Application.Features.PostCategory.Queries.GetPostCategories
 {
 	public class GetPostCategoriesQueryResponse
 	{
+
+		public string CategoryName { get; set; } = string.Empty;
 	}
 }

@@ -31,7 +31,7 @@ namespace MyBlog.Application.Features.Post.Queries.GetPosts
 			IList<PostSummary> posts = [];
 			if (request.IsNullOrEmpty())
 			{
-				posts = await uow.GetReadRepository<PostSummary>().GetAllAsync(predicate:m=>m.IsPublished,select:m=>new PostSummary
+				posts = await uow.GetReadRepository<PostSummary>().GetAllAsyncAs(predicate:m=>m.IsPublished,select:m=>new PostSummary
 				{
 					IsPublished=m.IsPublished,
 					AuthorName=m.AuthorName,

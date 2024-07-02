@@ -56,7 +56,7 @@ namespace MyBlog.Application.Features.Category.Command.UpdateCategory
 		{
 			if (parentId != 0)
 			{
-				IList<Tuple<int, int>> categoryAndParentIds = await readRepository.GetAllAsync(select: m => new Tuple<int, int>(m.Id, m.ParentId), cancellationToken: cancellationToken);
+				IList<Tuple<int, int>> categoryAndParentIds = await readRepository.GetAllAsyncAs(select: m => new Tuple<int, int>(m.Id, m.ParentId), cancellationToken: cancellationToken);
 				categoryAndParentIds??=[];
 				int currentParentId = parentId;
 				List<int> parentIds= [categoryId];

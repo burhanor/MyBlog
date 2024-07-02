@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace MyBlog.Application.Features.PostCategory.Queries.GetPostCategories
 {
-	public class GetPostCategoriesQueryRequest:PostCategoryResponseModel,IRequest<ResponseContainer<IList<GetPostCategoriesQueryResponse>>>
+	public class GetPostCategoriesQueryRequest:IRequest<ResponseContainer<IList<GetPostCategoriesQueryResponse>>>
 	{
-	}
+        public int PostId { get; set; }
+    }
 }

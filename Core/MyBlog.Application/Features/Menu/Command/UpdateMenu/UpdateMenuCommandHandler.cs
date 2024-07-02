@@ -51,7 +51,7 @@ namespace MyBlog.Application.Features.Menu.Command.UpdateMenu
 		{
 			if (parentId != 0)
 			{
-				IList<Tuple<int, int>> menuAndParentIds = await readRepository.GetAllAsync(select: m => new Tuple<int, int>(m.Id, m.ParentId), cancellationToken: cancellationToken);
+				IList<Tuple<int, int>> menuAndParentIds = await readRepository.GetAllAsyncAs(select: m => new Tuple<int, int>(m.Id, m.ParentId), cancellationToken: cancellationToken);
 				menuAndParentIds ??= [];
 				int currentParentId = parentId;
 				List<int> parentIds = [menuId];

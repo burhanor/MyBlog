@@ -24,15 +24,7 @@ namespace MyBlog.Persistence.Repositories
 				query = query.Where(predicate);
 			return query;
 		}
-		public async Task<T> GetAllAsync(Expression<Func<T, bool>> predicate,Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,bool enableTracking = false,CancellationToken cancellationToken = default)
-		{
-			IQueryable<T> query = Table.Where(predicate);
-			if (!enableTracking)
-				query = query.AsNoTracking();
-			if (include != null)
-				query = include(query);
-			return await query.FirstOrDefaultAsync(cancellationToken: cancellationToken) ?? new();
-		}
+
 		public async Task<TType> GetAsync<TType> (Expression<Func<T, TType>> select, Expression<Func<T, bool>> predicate,  bool enableTracking = false, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, CancellationToken cancellationToken = default)
 		where TType : class, new()
 		{
@@ -70,7 +62,7 @@ namespace MyBlog.Persistence.Repositories
 				query = query.Skip((currentPage.Value - 1) * pageSize.Value).Take(pageSize.Value);
 			return await query.ToListAsync(cancellationToken);
 		}
-		public async Task<IList<TType>> GetAllAsync<TType>(Expression<Func<T, TType>> select, Expression<Func<T, bool>>? predicate = null, bool enableTracking = false, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, int? currentPage = null, int? pageSize = null, CancellationToken cancellationToken = default)
+		public async Task<IList<TType>> GetAllAsyncAs<TType>(Expression<Func<T, TType>> select, Expression<Func<T, bool>>? predicate = null, bool enableTracking = false, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, int? currentPage = null, int? pageSize = null, CancellationToken cancellationToken = default)
 		{
 			IQueryable<T> query = Table;
 			if (!enableTracking)

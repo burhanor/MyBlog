@@ -21,6 +21,15 @@ namespace MyBlog.Application.Features.Post.Rules
 			await ValueTask.CompletedTask;
 		}
 
+		public async ValueTask PostNotFound(bool isExist)
+		{
+			if (!isExist)
+			{
+				throw new PostNotFoundException();
+			}
+			await ValueTask.CompletedTask;
+		}
+
 		public async ValueTask PostAlreadyExists(Domain.Entities.Post? post)
 		{
 			if (post != null && post.Id != 0)

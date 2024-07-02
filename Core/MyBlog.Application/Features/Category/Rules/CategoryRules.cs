@@ -24,6 +24,14 @@ namespace MyBlog.Application.Features.Category.Rules
 			}
 			await ValueTask.CompletedTask;
 		}
+		public async ValueTask CategoryNotFound(bool isExist)
+		{
+			if (!isExist)
+			{
+				throw new CategoryNotFoundException();
+			}
+			await ValueTask.CompletedTask;
+		}
 
 		public async ValueTask CategoryAlreadyExists(Domain.Entities.Category? category)
 		{
