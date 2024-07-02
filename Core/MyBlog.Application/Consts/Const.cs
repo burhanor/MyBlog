@@ -58,7 +58,20 @@ namespace MyBlog.Application.Consts
 			public const string POST_CATEGORY_DELETED = "POST_CATEGORY_DELETED";
 			public const string POST_CATEGORY_NOT_FOUND = "POST_CATEGORY_NOT_FOUND";
 			public const string POST_CATEGORY_ALREADY_EXISTS = "POST_CATEGORY_ALREADY_EXISTS";
+			public const string CATEGORY_ID_MUST_BE_GREATER_THAN_ZERO = "CATEGORY_ID_MUST_BE_GREATER_THAN_ZERO";
+			public const string POST_ID_MUST_BE_GREATER_THAN_ZERO = "POST_ID_MUST_BE_GREATER_THAN_ZERO";
 
+		}
+
+		public static class PostTag
+		{
+			public const string POST_TAG_CREATED = "POST_TAG_CREATED";
+			public const string POST_TAG_UPDATED = "POST_TAG_UPDATED";
+			public const string POST_TAG_DELETED = "POST_TAG_DELETED";
+			public const string POST_TAG_NOT_FOUND = "POST_TAG_NOT_FOUND";
+			public const string POST_TAG_ALREADY_EXISTS = "POST_TAG_ALREADY_EXISTS";
+			public const string TAG_ID_MUST_BE_GREATER_THAN_ZERO = "TAG_ID_MUST_BE_GREATER_THAN_ZERO";
+			public const string POST_ID_MUST_BE_GREATER_THAN_ZERO = "POST_ID_MUST_BE_GREATER_THAN_ZERO";
 		}
 
 		public static class Post
@@ -77,7 +90,13 @@ namespace MyBlog.Application.Consts
 			public const string POST_CATEGORY_REQUIRED = "POST_CATEGORY_REQUIRED";
 			public const string POST_AUTHOR_REQUIRED = "POST_AUTHOR_REQUIRED";
 		}
-
+		public static class PostRecommendation
+		{
+			public const string POST_RECOMMENDATION_CREATED = "POST_RECOMMENDATION_CREATED";
+			public const string POST_RECOMMENDATION_DELETED = "POST_RECOMMENDATION_DELETED";
+			public const string POST_RECOMMENDATION_NOT_FOUND = "POST_RECOMMENDATION_NOT_FOUND";
+			public const string POST_RECOMMENDATION_ALREADY_EXISTS = "POST_RECOMMENDATION_ALREADY_EXISTS";
+		}
 		public static class Series
 		{
 			public const string SERIES_CREATED = "SERIES_CREATED";

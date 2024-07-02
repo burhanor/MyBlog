@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyBlog.Application.Models.PostCategory
+namespace MyBlog.Application.Features.PostTag.Queries.GetPostTags
 {
-	public class PostCategoryResponseModel
+	public class GetPostTagsQueryResponse
 	{
-		public string CategoryName { get; set; } = string.Empty;
+		public string TagName { get; set; } = string.Empty; 
 		public string Url { get; set; } = string.Empty;
+
 
 	}
 }

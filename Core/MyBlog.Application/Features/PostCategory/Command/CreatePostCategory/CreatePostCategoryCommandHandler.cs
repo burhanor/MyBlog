@@ -37,6 +37,7 @@ namespace MyBlog.Application.Features.PostCategory.Command.CreatePostCategory
 			Domain.Entities.Category category = await uow.GetReadRepository<Domain.Entities.Category>().GetAsync(predicate:x => x.Id == request.CategoryId,cancellationToken:cancellationToken,select:m=>new Domain.Entities.Category
 			{
 				Name=m.Name,
+				Url=m.Url,
 				Id=request.CategoryId
 			});
 			await categoryRules.CategoryNotFound(category);
@@ -50,6 +51,7 @@ namespace MyBlog.Application.Features.PostCategory.Command.CreatePostCategory
 			response.Data=new CreatePostCategoryCommandResponse
 			{
 				CategoryName = category.Name ,
+				Url=category.Url
 			};
 
 			return response;

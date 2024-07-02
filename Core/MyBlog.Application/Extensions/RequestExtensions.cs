@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MyBlog.Application.Features.Post.Queries.GetPosts;
 using MyBlog.Application.Features.Post.Queries.GetPublishedPosts;
+using MyBlog.Application.Features.PostRecommendation.Queries.GetPostRecommendations;
 
 namespace MyBlog.Application.Extensions
 {
@@ -75,5 +76,13 @@ namespace MyBlog.Application.Extensions
 				return true;
 			return request.PageSize == null && request.PageNumber == null && request.OrderBy == null && request.Search == null;
 		}
+
+		public static bool IsNullOrEmpty(this GetPostRecommendationsQueryRequest request)
+		{
+			if (request == null)
+				return true;
+			return request.PageSize == null && request.PageNumber == null && request.OrderBy == null && request.Search == null;
+		}
+
 	}
 }

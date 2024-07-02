@@ -33,6 +33,8 @@ namespace MyBlog.Application.Features.PostCategory.Queries.GetPostCategories
 			response.Data = postCategories.Select(m => new GetPostCategoriesQueryResponse
 			{
 				CategoryName=m.Category.Name,
+				Url=m.Category.Url
+
 			}).ToList();
 			return response;
 		}
