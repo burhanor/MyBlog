@@ -51,6 +51,16 @@ namespace MyBlog.Application.Consts
 		
 		}
 
+		public static class PostCategory
+		{
+			public const string POST_CATEGORY_CREATED = "POST_CATEGORY_CREATED";
+			public const string POST_CATEGORY_UPDATED = "POST_CATEGORY_UPDATED";
+			public const string POST_CATEGORY_DELETED = "POST_CATEGORY_DELETED";
+			public const string POST_CATEGORY_NOT_FOUND = "POST_CATEGORY_NOT_FOUND";
+			public const string POST_CATEGORY_ALREADY_EXISTS = "POST_CATEGORY_ALREADY_EXISTS";
+
+		}
+
 		public static class Post
 		{
 			public const string POST_CREATED = "POST_CREATED";
