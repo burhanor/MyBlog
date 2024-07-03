@@ -2,17 +2,13 @@
 using MyBlog.Application.Features.Card.Queries.GetCards;
 using MyBlog.Application.Features.Category.Queries.GetCategories;
 using MyBlog.Application.Features.Menu.Queries.GetMenus;
-using MyBlog.Application.Features.Slider.Queries.GetSliders;
-using MyBlog.Application.Features.Series.Queries.GetSeries;
-using MyBlog.Application.Features.Tag.Queries.GetTags;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MyBlog.Application.Features.Post.Queries.GetPosts;
 using MyBlog.Application.Features.Post.Queries.GetPublishedPosts;
 using MyBlog.Application.Features.PostRecommendation.Queries.GetPostRecommendations;
+using MyBlog.Application.Features.PostSeries.Queries.GetPostSeries;
+using MyBlog.Application.Features.Series.Queries.GetSeries;
+using MyBlog.Application.Features.Slider.Queries.GetSliders;
+using MyBlog.Application.Features.Tag.Queries.GetTags;
 
 namespace MyBlog.Application.Extensions
 {
@@ -83,6 +79,11 @@ namespace MyBlog.Application.Extensions
 				return true;
 			return request.PageSize == null && request.PageNumber == null && request.OrderBy == null && request.Search == null;
 		}
-
+		public static bool IsNullOrEmpty(this GetPostSeriesQueryRequest request)
+		{
+			if (request == null)
+				return true;
+			return request.PageSize == null && request.PageNumber == null && request.OrderBy == null && request.Search == null;
+		}
 	}
 }

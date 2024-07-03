@@ -62,7 +62,16 @@ namespace MyBlog.Application.Consts
 			public const string POST_ID_MUST_BE_GREATER_THAN_ZERO = "POST_ID_MUST_BE_GREATER_THAN_ZERO";
 
 		}
-
+		public static class PostSeries
+		{
+			public const string POST_SERIES_CREATED = "POST_SERIES_CREATED";
+			public const string POST_SERIES_UPDATED = "POST_SERIES_UPDATED";
+			public const string POST_SERIES_DELETED = "POST_SERIES_DELETED";
+			public const string POST_SERIES_NOT_FOUND = "POST_SERIES_NOT_FOUND";
+			public const string POST_SERIES_ALREADY_EXISTS = "POST_SERIES_ALREADY_EXISTS";
+			public const string SERIES_ID_MUST_BE_GREATER_THAN_ZERO = "SERIES_ID_MUST_BE_GREATER_THAN_ZERO";
+			public const string POST_ID_MUST_BE_GREATER_THAN_ZERO = "POST_ID_MUST_BE_GREATER_THAN_ZERO";
+		}
 		public static class PostTag
 		{
 			public const string POST_TAG_CREATED = "POST_TAG_CREATED";

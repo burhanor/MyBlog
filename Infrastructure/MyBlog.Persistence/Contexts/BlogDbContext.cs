@@ -49,6 +49,7 @@ namespace MyBlog.Persistence.Contexts
         public DbSet<SliderSummary> SliderSummaries { get; set; }
 		public DbSet<MenuWithParentName> MenuWithParentNames { get; set; }
 		public DbSet<SeriesSummary> SeriesSummaries { get; set; }
+		public DbSet<PostSeriesSummary> PostSeriesSummaries { get; set; }
 
 		#endregion
 
