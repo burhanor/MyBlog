@@ -1,13 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MyBlog.Domain.Entities;
 using MyBlog.Domain.Enums;
 using MyBlog.Domain.Views;
-using MyBlog.Persistence.Migrations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Numerics;
 
 namespace MyBlog.Persistence.Contexts
 {
@@ -53,12 +49,35 @@ namespace MyBlog.Persistence.Contexts
 
 		#endregion
 
+		#region Functions
+		//TODO : Fonksiyonları entity kullanmadan sadece select ile çek
+		public int GetSeriesImageId(int seriesId, ImageType imageType)
+		{
+			var a = (from b in Series select GetSeriesImageId(seriesId, imageType));
+			return Series.Select(m => GetSeriesImageId(seriesId, imageType)).FirstOrDefault();
+		}
 
-	
+		public string GetSeriesImagePath(int seriesId, ImageType imageType)
+		{
+			return Series.Select(m => GetSeriesImagePath(seriesId, imageType)).FirstOrDefault()??string.Empty;
+		}
+		#endregion
+
+
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
 			modelBuilder.ApplyConfigurationsFromAssembly(typeof(BlogDbContext).Assembly);
+			ConfigureFunctions(modelBuilder);
+		}
+
+		private static void ConfigureFunctions(ModelBuilder modelBuilder)
+		{
+			modelBuilder.HasDbFunction(typeof(BlogDbContext).GetMethod(nameof(GetSeriesImageId)))
+				.HasName("GetSeriesImageId");
+			modelBuilder.HasDbFunction(typeof(BlogDbContext).GetMethod(nameof(GetSeriesImagePath)))
+				.HasName("GetSeriesImagePath");
 		}
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

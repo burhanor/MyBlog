@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Query;
 using MyBlog.Domain.Commons;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyBlog.Application.Interfaces.Repositories
 {
@@ -21,5 +16,6 @@ namespace MyBlog.Application.Interfaces.Repositories
 		Task<long> LongCountAsync(Expression<Func<T, bool>>? predicate = null, CancellationToken cancellationToken = default);
 		Task<bool> ExistAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default);
 		Task<bool> UniqueAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default);
+
 	}
 }

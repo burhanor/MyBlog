@@ -1,6 +1,10 @@
-﻿using MyBlog.Application.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using MyBlog.Application.Interfaces.Functions;
+using MyBlog.Application.Interfaces.Repositories;
 using MyBlog.Application.Interfaces.UnitOfWork;
+using MyBlog.Domain.Enums;
 using MyBlog.Persistence.Contexts;
+using MyBlog.Persistence.Functions;
 using MyBlog.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
@@ -17,6 +21,7 @@ namespace MyBlog.Persistence.UnitOfWork
 		public async ValueTask DisposeAsync()
 		{
 			await dbContext.DisposeAsync();
+
 		}
 
 
@@ -31,7 +36,11 @@ namespace MyBlog.Persistence.UnitOfWork
 		public async Task CommitTransactionAsync(CancellationToken cancellationToken = default) => await dbContext.Database.CommitTransactionAsync(cancellationToken);
 		public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default) => await dbContext.Database.RollbackTransactionAsync(cancellationToken);
 
+		public IScalarFunction GetScalarFunction()=> new ScalarFunctions(dbContext);
+		
 		#endregion
-	
+
+
+
 	}
 }

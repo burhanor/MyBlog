@@ -119,6 +119,11 @@ namespace MyBlog.Application.Consts
 			public const string SERIES_URL_MAX_LENGTH = "SERIES_URL_MAX_LENGTH";
 
 		}
+		public static class SeriesImages
+		{
+			public const string POST_SERIES_IMAGE_UPDATED = "POST_SERIES_IMAGE_UPDATED";	
+			public const string POST_SERIES_IMAGE_DELETED = "POST_SERIES_IMAGE_DELETED";	
+		}
 		public static class Menu
 		{
 			public const string MENU_CREATED = "MENU_CREATED";
