@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using MyBlog.Domain.Entities;
 using MyBlog.Domain.Enums;
 using MyBlog.Domain.Views;
+using MyBlog.Persistence.Migrations;
 using System.Numerics;
 
 namespace MyBlog.Persistence.Contexts
@@ -53,7 +54,6 @@ namespace MyBlog.Persistence.Contexts
 		//TODO : Fonksiyonları entity kullanmadan sadece select ile çek
 		public int GetSeriesImageId(int seriesId, ImageType imageType)
 		{
-			var a = (from b in Series select GetSeriesImageId(seriesId, imageType));
 			return Series.Select(m => GetSeriesImageId(seriesId, imageType)).FirstOrDefault();
 		}
 
@@ -61,6 +61,22 @@ namespace MyBlog.Persistence.Contexts
 		{
 			return Series.Select(m => GetSeriesImagePath(seriesId, imageType)).FirstOrDefault()??string.Empty;
 		}
+
+		public int GetPostImageId(int postId, ImageType imageType)
+		{
+			return Posts.Select(m => GetPostImageId(postId, imageType)).FirstOrDefault();
+		}
+
+		public string GetPostImagePath(int postId, ImageType imageType)
+		{
+			return Posts.Select(m => GetPostImagePath(postId, imageType)).FirstOrDefault() ?? string.Empty;
+		}
+
+		public int GetPostViewCount(int postId)
+		{
+			return Posts.Select(m => GetPostViewCount(postId)).FirstOrDefault();
+		}
+
 		#endregion
 
 
@@ -78,6 +94,15 @@ namespace MyBlog.Persistence.Contexts
 				.HasName("GetSeriesImageId");
 			modelBuilder.HasDbFunction(typeof(BlogDbContext).GetMethod(nameof(GetSeriesImagePath)))
 				.HasName("GetSeriesImagePath");
+
+			modelBuilder.HasDbFunction(typeof(BlogDbContext).GetMethod(nameof(GetPostImageId)))
+				.HasName("GetPostImageId");
+			modelBuilder.HasDbFunction(typeof(BlogDbContext).GetMethod(nameof(GetPostImagePath)))
+				.HasName("GetPostImagePath");
+
+
+			modelBuilder.HasDbFunction(typeof(BlogDbContext).GetMethod(nameof(GetPostViewCount)))
+				.HasName("GetPostViewCount");
 		}
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

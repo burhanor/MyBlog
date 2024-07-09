@@ -3,10 +3,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.API.Extensions;
 using MyBlog.Application.Features.Post.Command.CreatePost;
+using MyBlog.Application.Features.Post.Command.CreatePostView;
 using MyBlog.Application.Features.Post.Command.DeletePost;
+using MyBlog.Application.Features.Post.Command.DeletePostImage;
 using MyBlog.Application.Features.Post.Command.UpdatePost;
+using MyBlog.Application.Features.Post.Command.UpdatePostImage;
 using MyBlog.Application.Features.Post.Queries.GetPost;
 using MyBlog.Application.Features.Post.Queries.GetPosts;
+using MyBlog.Application.Features.Post.Queries.GetPostViewCount;
 using MyBlog.Application.Features.Post.Queries.GetPublishedPosts;
 using MyBlog.Application.Interfaces.AutoMapper;
 using MyBlog.Application.Models;
@@ -65,6 +69,43 @@ namespace MyBlog.API.Controllers
 			return await this.UpdateAsync<UpdatePostCommandRequest, ResponseContainer<UpdatePostCommandResponse>>(mediator, mapper.Map<UpdatePostCommandRequest, PostModel>(request), id);
 		}
 
+		[HttpPut("{postId}/thumbnail")]
+		public async Task<IActionResult> UpdateThumbnailImage([FromRoute] int postId, [FromForm] ImageModel image)
+		{
+			UpdatePostImageCommandRequest request = new() { ImageType = Domain.Enums.ImageType.PostThumbnail, Image = image.Image };
+			return await this.UpdateAsync<UpdatePostImageCommandRequest, ResponseContainer<UpdatePostImageCommandResponse>>(mediator, request, postId);
+		}
+		[HttpPut("{postId}/header")]
+		public async Task<IActionResult> UpdateHeaderImage([FromRoute] int postId, [FromForm] ImageModel image)
+		{
+			UpdatePostImageCommandRequest request = new() { ImageType = Domain.Enums.ImageType.PostHeader, Image = image.Image };
+			return await this.UpdateAsync<UpdatePostImageCommandRequest, ResponseContainer<UpdatePostImageCommandResponse>>(mediator, request, postId);
+		}
 
+		[HttpDelete("{postId}/thumbnail")]
+		public async Task<IActionResult> DeleteThumbnailImage([FromRoute] int postId)
+		{
+			return await this.DeleteAsync(mediator, new DeletePostImageCommandRequest { PostId = postId, ImageType = Domain.Enums.ImageType.PostThumbnail });
+		}
+		[HttpDelete("{postId}/header")]
+		public async Task<IActionResult> DeleteHeaderImage([FromRoute] int postId)
+		{
+			return await this.DeleteAsync(mediator, new DeletePostImageCommandRequest { PostId = postId, ImageType = Domain.Enums.ImageType.PostHeader });
+		}
+
+		[HttpPost("{postId}/view")]
+		public async Task<IActionResult> CreateViewCount([FromRoute] int postId)
+		{
+			return await this.CreateAsync<CreatePostViewCommandRequest, ResponseContainer<CreatePostViewCommandResponse>>(mediator, new CreatePostViewCommandRequest()
+			{
+				PostId=postId
+			});
+		}
+		[HttpGet("{postId}/view")]
+		[AllowAnonymous]
+		public async Task<IActionResult> GetPostViewCount([FromRoute] int postId)
+		{
+			return await this.GetByIdAsync(mediator, new GetPostViewCountQueryRequest { Id = postId });
+		}
 	}
 }

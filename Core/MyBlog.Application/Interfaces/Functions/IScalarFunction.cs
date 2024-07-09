@@ -1,4 +1,5 @@
-﻿using MyBlog.Domain.Enums;
+﻿using Microsoft.EntityFrameworkCore;
+using MyBlog.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,10 @@ namespace MyBlog.Application.Interfaces.Functions
 	{
 		int GetSeriesImageId(int seriesId, ImageType imageType);
 		string GetSeriesImagePath(int seriesId, ImageType imageType);
+
+
+		int GetPostImageId(int postId, ImageType imageType);
+		string GetPostImagePath(int postId, ImageType imageType);
+		int GetPostViewCount(int postId);
 	}
 }

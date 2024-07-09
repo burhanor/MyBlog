@@ -106,6 +106,11 @@ namespace MyBlog.Application.Consts
 			public const string POST_RECOMMENDATION_NOT_FOUND = "POST_RECOMMENDATION_NOT_FOUND";
 			public const string POST_RECOMMENDATION_ALREADY_EXISTS = "POST_RECOMMENDATION_ALREADY_EXISTS";
 		}
+		public static class PostImages
+		{
+			public const string POST_IMAGE_UPDATED = "POST_IMAGE_UPDATED";
+			public const string POST_IMAGE_DELETED = "POST_IMAGE_DELETED";
+		}
 		public static class Series
 		{
 			public const string SERIES_CREATED = "SERIES_CREATED";

@@ -42,5 +42,7 @@ namespace MyBlog.Application.Bases
 			if (httpContextAccessor.HttpContext.User.Identity != null)
 				userId = httpContextAccessor.HttpContext.User.Identity.IsAuthenticated ? Convert.ToInt32(httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value) : 0;
 		}
+
+
 	}
 }
