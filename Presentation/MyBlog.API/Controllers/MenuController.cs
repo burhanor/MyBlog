@@ -7,7 +7,6 @@ using MyBlog.Application.Features.Menu.Command.DeleteMenu;
 using MyBlog.Application.Features.Menu.Command.UpdateMenu;
 using MyBlog.Application.Features.Menu.Queries.GetMenu;
 using MyBlog.Application.Features.Menu.Queries.GetMenus;
-using MyBlog.Application.Interfaces.AutoMapper;
 using MyBlog.Application.Models;
 using MyBlog.Application.Models.Menu;
 
@@ -20,19 +19,16 @@ namespace MyBlog.API.Controllers
 	public class MenuController : ControllerBase
 	{
 		private readonly IMediator mediator;
-		private readonly IMyMapper mapper;
-
-		public MenuController(IMediator mediator, IMyMapper mapper)
+		public MenuController(IMediator mediator)
 		{
 			this.mediator = mediator;
-			this.mapper = mapper;
 		}
 
 		[HttpGet("{id}")]
 		[AllowAnonymous]
 		public async Task<IActionResult> GetMenu([FromRoute] int id)
 		{
-			return await this.GetByIdAsync(mediator, new GetMenuQueryRequest { Id = id });
+			return await this.GetByIdAsync(mediator, new GetMenuQueryRequest(id));
 		}
 		[HttpGet]
 		[AllowAnonymous]
@@ -43,20 +39,20 @@ namespace MyBlog.API.Controllers
 
 
 		[HttpPost]
-		public async Task<IActionResult> CreateMenu([FromForm] MenuModel request)
+		public async Task<IActionResult> CreateMenu([FromForm] MenuModel model)
 		{
-			return await this.CreateAsync<CreateMenuCommandRequest, ResponseContainer<CreateMenuCommandResponse>>(mediator, mapper.Map<CreateMenuCommandRequest, MenuModel>(request));
+			return await this.CreateAsync<CreateMenuCommandRequest, ResponseContainer<CreateMenuCommandResponse>>(mediator, model.ToCreateCommandRequest());
 		}
 
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteMenu([FromRoute] int id)
 		{
-			return await this.DeleteAsync(mediator, new DeleteMenuCommandRequest { Id = id });
+			return await this.DeleteAsync(mediator, new DeleteMenuCommandRequest(id));
 		}
 		[HttpPost("{id}")]
-		public async Task<IActionResult> UpdateMenu([FromForm] MenuModel request, [FromRoute] int id)
+		public async Task<IActionResult> UpdateMenu([FromForm] MenuModel model, [FromRoute] int id)
 		{
-			return await this.UpdateAsync<UpdateMenuCommandRequest, ResponseContainer<UpdateMenuCommandResponse>>(mediator, mapper.Map<UpdateMenuCommandRequest, MenuModel>(request), id);
+			return await this.UpdateAsync<UpdateMenuCommandRequest, ResponseContainer<UpdateMenuCommandResponse>>(mediator, model.ToUpdateCommandRequest(id), id);
 		}
 
 

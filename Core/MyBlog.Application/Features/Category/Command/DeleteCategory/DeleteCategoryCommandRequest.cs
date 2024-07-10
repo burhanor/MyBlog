@@ -11,6 +11,16 @@ namespace MyBlog.Application.Features.Category.Command.DeleteCategory
 {
 	public class DeleteCategoryCommandRequest:IRequest<ResponseContainer<DeleteCategoryCommandResponse>>,IId
 	{
-        public int Id { get; set; }
+        public DeleteCategoryCommandRequest()
+        {
+            
+        }
+
+		public DeleteCategoryCommandRequest(int id)
+		{
+			Id = id;
+		}
+
+		public int Id { get; set; }
     }
 }

@@ -5,9 +5,7 @@ using MyBlog.API.Extensions;
 using MyBlog.Application.Features.PostCategory.Command.CreatePostCategory;
 using MyBlog.Application.Features.PostCategory.Command.DeletePostCategory;
 using MyBlog.Application.Features.PostCategory.Queries.GetPostCategories;
-using MyBlog.Application.Interfaces.AutoMapper;
 using MyBlog.Application.Models;
-using MyBlog.Application.Models.PostCategory;
 
 namespace MyBlog.API.Controllers
 {
@@ -18,12 +16,10 @@ namespace MyBlog.API.Controllers
 	public class PostCategoryController : ControllerBase
 	{
 		private readonly IMediator mediator;
-		private readonly IMyMapper mapper;
 
-		public PostCategoryController(IMediator mediator, IMyMapper mapper)
+		public PostCategoryController(IMediator mediator)
 		{
 			this.mediator = mediator;
-			this.mapper = mapper;
 		}
 
 	
@@ -31,22 +27,20 @@ namespace MyBlog.API.Controllers
 		[AllowAnonymous]
 		public async Task<IActionResult> GetPostCategories([FromRoute] int postId)
 		{
-			GetPostCategoriesQueryRequest request = new() { PostId = postId };
-			return await this.GetAsync(mediator, request);
+			return await this.GetAsync(mediator, new GetPostCategoriesQueryRequest(postId));
 		}
-
 
 		[HttpPost("{postId}/categories")]
 		public async Task<IActionResult> CreatePostCategory([FromRoute] int postId, [FromForm] int categoryId )
 		{
-			PostCategoryModel request= new() { CategoryId = categoryId, PostId = postId };
-			return await this.CreateAsync<CreatePostCategoryCommandRequest, ResponseContainer<CreatePostCategoryCommandResponse>>(mediator, mapper.Map<CreatePostCategoryCommandRequest, PostCategoryModel>(request));
+			CreatePostCategoryCommandRequest request = new(categoryId,postId);
+			return await this.CreateAsync<CreatePostCategoryCommandRequest, ResponseContainer<CreatePostCategoryCommandResponse>>(mediator, request);
 		}
 
 		[HttpDelete("{postId}/categories/{categoryId}")]
 		public async Task<IActionResult> DeletePostCategory([FromRoute] int postId, [FromRoute] int categoryId)
 		{
-			return await this.DeleteAsync(mediator, new DeletePostCategoryCommandRequest { CategoryId = categoryId,PostId= postId });
+			return await this.DeleteAsync(mediator, new DeletePostCategoryCommandRequest(postId,categoryId));
 		}
 	
 

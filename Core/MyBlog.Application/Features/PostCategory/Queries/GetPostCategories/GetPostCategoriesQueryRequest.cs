@@ -11,6 +11,15 @@ namespace MyBlog.Application.Features.PostCategory.Queries.GetPostCategories
 {
 	public class GetPostCategoriesQueryRequest:IRequest<ResponseContainer<IList<GetPostCategoriesQueryResponse>>>
 	{
-        public int PostId { get; set; }
+        public GetPostCategoriesQueryRequest()
+        {
+            
+        }
+        public GetPostCategoriesQueryRequest(int postId)
+		{
+			PostId = postId;
+		}
+
+		public int PostId { get; set; }
     }
 }
