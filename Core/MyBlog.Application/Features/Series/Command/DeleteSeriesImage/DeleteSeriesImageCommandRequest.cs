@@ -11,7 +11,17 @@ namespace MyBlog.Application.Features.Series.Command.DeleteSeriesImage
 {
 	public class DeleteSeriesImageCommandRequest:IRequest<ResponseContainer<Unit>>
 	{
-        public int SeriesId { get; set; }
+        public DeleteSeriesImageCommandRequest()
+        {
+            
+        }
+        public DeleteSeriesImageCommandRequest(int seriesId, ImageType imageType)
+		{
+			SeriesId = seriesId;
+			ImageType = imageType;
+		}
+
+		public int SeriesId { get; set; }
 		public ImageType ImageType { get; set; }
 	}
 }

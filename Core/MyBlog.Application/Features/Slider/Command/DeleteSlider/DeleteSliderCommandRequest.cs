@@ -11,6 +11,15 @@ namespace MyBlog.Application.Features.Slider.Command.DeleteSlider
 {
 	public class DeleteSliderCommandRequest:IRequest<ResponseContainer<Unit>>,IId
 	{
-        public int Id { get; set; }
+        public DeleteSliderCommandRequest()
+        {
+            
+        }
+        public DeleteSliderCommandRequest(int id)
+		{
+			Id = id;
+		}
+
+		public int Id { get; set; }
     }
 }

@@ -11,6 +11,15 @@ namespace MyBlog.Application.Features.Post.Queries.GetPostViewCount
 {
 	public class GetPostViewCountQueryRequest:IRequest<ResponseContainer<GetPostViewCountQueryResponse>>,IId
 	{
+        public GetPostViewCountQueryRequest()
+        {
+            
+        }
+        public GetPostViewCountQueryRequest(int ıd)
+		{
+			Id = ıd;
+		}
+
 		public int Id { get; set; }
 	}
 }

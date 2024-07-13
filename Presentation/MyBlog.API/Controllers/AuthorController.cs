@@ -1,20 +1,16 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.API.Extensions;
-using MyBlog.Application.Features.Auth.Command.Login;
+using MyBlog.Application.Features.Author.Command.ChangeAvatar;
+using MyBlog.Application.Features.Author.Command.ChangePassword;
 using MyBlog.Application.Features.Author.Command.CreateAuthor;
-using MyBlog.Application.Interfaces.AutoMapper;
-using MyBlog.Application.Models.Auth;
+using MyBlog.Application.Features.Author.Command.DeleteAuthor;
+using MyBlog.Application.Features.Author.Command.UpdateAuthor;
+using MyBlog.Application.Features.Author.Queries.GetAuthor;
+using MyBlog.Application.Features.Author.Queries.GetAuthors;
 using MyBlog.Application.Models;
 using MyBlog.Application.Models.Author;
-using MyBlog.Application.Features.Author.Command.UpdateAuthor;
-using MyBlog.Application.Features.Author.Command.DeleteAuthor;
-using Azure.Core;
-using MyBlog.Application.Features.Author.Command.ChangePassword;
-using Microsoft.AspNetCore.Authorization;
-using MyBlog.Application.Features.Author.Command.ChangeAvatar;
-using MyBlog.Application.Features.Author.Queries.GetAuthors;
-using MyBlog.Application.Features.Author.Queries.GetAuthor;
 
 namespace MyBlog.API.Controllers
 {
@@ -25,31 +21,29 @@ namespace MyBlog.API.Controllers
 	public class AuthorController : ControllerBase
 	{
 		private readonly IMediator mediator;
-		private readonly IMyMapper mapper;
 
-		public AuthorController(IMediator mediator, IMyMapper mapper)
+		public AuthorController(IMediator mediator)
 		{
 			this.mediator = mediator;
-			this.mapper = mapper;
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> CreateAuthor([FromForm] AuthorModel request)
+		public async Task<IActionResult> CreateAuthor([FromForm] AuthorModel model)
 		{
-			return await this.CreateAsync<CreateAuthorCommandRequest, ResponseContainer<CreateAuthorCommandResponse>>(mediator, mapper.Map<CreateAuthorCommandRequest, AuthorModel>(request));
+			return await this.CreateAsync<CreateAuthorCommandRequest, ResponseContainer<CreateAuthorCommandResponse>>(mediator, model.ToCreateCommandRequest());
 		}
 
 
 		[HttpPost("{id}")]
-		public async Task<IActionResult> UpdateAuthor([FromRoute]int id,[FromForm] AuthorModel request)
+		public async Task<IActionResult> UpdateAuthor([FromRoute]int id,[FromForm] AuthorModel model)
 		{
-			return await this.UpdateAsync<UpdateAuthorCommandRequest, ResponseContainer<UpdateAuthorCommandResponse>>(mediator, mapper.Map<UpdateAuthorCommandRequest, AuthorModel>(request),id);
+			return await this.UpdateAsync<UpdateAuthorCommandRequest, ResponseContainer<UpdateAuthorCommandResponse>>(mediator, model.ToUpdateCommandRequest(id));
 		}
 
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteAuthor([FromRoute] int id)
 		{
-			return await this.DeleteAsync(mediator, new DeleteAuthorCommandRequest { Id = id });
+			return await this.DeleteAsync(mediator, new DeleteAuthorCommandRequest(id));
 		}
 
 
@@ -57,23 +51,14 @@ namespace MyBlog.API.Controllers
 		[Route("change-password")]
 		public async Task<IActionResult> ChangePassword(string password)
 		{
-			ChangePasswordCommandRequest request = new()
-			{
-				Password = password
-			};
-			return await this.UpdateAsync<ChangePasswordCommandRequest, ResponseContainer<ChangePasswordCommandResponse>>(mediator,request,0);
-
+			return await this.UpdateAsync<ChangePasswordCommandRequest, ResponseContainer<ChangePasswordCommandResponse>>(mediator, new ChangePasswordCommandRequest(password));
 		}
 
 		[HttpPost]
 		[Route("change-avatar")]
 		public async Task<IActionResult> ChangeAvatar(IFormFile image)
 		{
-			ChangeAvatarCommandRequest request = new()
-			{
-				Image = image
-			};
-			return await this.UpdateAsync<ChangeAvatarCommandRequest, ResponseContainer<ChangeAvatarCommandResponse>>(mediator, request, 0);
+			return await this.UpdateAsync<ChangeAvatarCommandRequest, ResponseContainer<ChangeAvatarCommandResponse>>(mediator, new ChangeAvatarCommandRequest(image));
 		}
 
 

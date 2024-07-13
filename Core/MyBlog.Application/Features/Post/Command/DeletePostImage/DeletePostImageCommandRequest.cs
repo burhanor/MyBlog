@@ -11,6 +11,16 @@ namespace MyBlog.Application.Features.Post.Command.DeletePostImage
 {
 	public class DeletePostImageCommandRequest : IRequest<ResponseContainer<Unit>>
 	{
+        public DeletePostImageCommandRequest()
+        {
+            
+        }
+        public DeletePostImageCommandRequest(int postId, ImageType imageType)
+		{
+			PostId = postId;
+			ImageType = imageType;
+		}
+
 		public int PostId { get; set; }
 		public ImageType ImageType { get; set; }
 	}

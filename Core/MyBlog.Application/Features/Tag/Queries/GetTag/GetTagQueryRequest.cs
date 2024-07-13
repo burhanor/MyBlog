@@ -11,6 +11,16 @@ namespace MyBlog.Application.Features.Tag.Queries.GetTag
 {
 	public class GetTagQueryRequest:IRequest<ResponseContainer<GetTagQueryResponse>>,IId
 	{
+        public GetTagQueryRequest()
+        {
+            
+        }
+
+		public GetTagQueryRequest(int id)
+		{
+			Id = id;
+		}
+
 		public int Id { get; set; }
 	}
 }

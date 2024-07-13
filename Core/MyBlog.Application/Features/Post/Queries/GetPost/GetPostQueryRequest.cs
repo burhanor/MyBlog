@@ -11,6 +11,14 @@ namespace MyBlog.Application.Features.Post.Queries.GetPost
 {
 	public class GetPostQueryRequest:IRequest<ResponseContainer<GetPostQueryResponse>>,IId	
 	{
+        public GetPostQueryRequest()
+        {
+            
+        }
+        public GetPostQueryRequest(int id)
+        {
+            Id = id;
+        }
         public int Id { get; set; }
     }
 }

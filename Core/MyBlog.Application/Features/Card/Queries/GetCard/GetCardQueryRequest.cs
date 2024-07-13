@@ -11,6 +11,16 @@ namespace MyBlog.Application.Features.Card.Queries.GetCard
 {
 	public class GetCardQueryRequest:IRequest<ResponseContainer<GetCardQueryResponse>>,IId
 	{
-        public int Id { get; set; }
+        public GetCardQueryRequest()
+        {
+            
+        }
+
+		public GetCardQueryRequest(int id)
+		{
+			Id = id;
+		}
+
+		public int Id { get; set; }
     }
 }

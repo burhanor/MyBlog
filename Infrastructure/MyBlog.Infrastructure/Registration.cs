@@ -18,7 +18,7 @@ namespace MyBlog.Infrastructure
 		{
 			services.Configure<TokenModel>(configuration.GetSection("JWT"));
 			services.AddTransient<ITokenService, TokenService>();
-
+			
 			services.AddAuthentication(opt =>
 			{
 				opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

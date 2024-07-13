@@ -11,6 +11,16 @@ namespace MyBlog.Application.Features.Author.Command.DeleteAuthor
 {
 	public class DeleteAuthorCommandRequest:IRequest<ResponseContainer<Unit>>,IId
 	{
+        public DeleteAuthorCommandRequest()
+        {
+            
+        }
+
+		public DeleteAuthorCommandRequest(int id)
+		{
+			Id = id;
+		}
+
 		public int Id { get; set; }
 	}
 }

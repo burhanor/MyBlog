@@ -11,5 +11,13 @@ namespace MyBlog.Application.Features.PostCategory.Command.DeletePostCategory
 {
 	public class DeletePostCategoryCommandRequest:PostCategoryModel,IRequest<ResponseContainer<Unit>>
 	{
-	}
+        public DeletePostCategoryCommandRequest()
+        {
+            
+        }
+        public DeletePostCategoryCommandRequest(int postId,int categoryId)
+        {
+            
+        }
+    }
 }

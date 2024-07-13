@@ -11,6 +11,15 @@ namespace MyBlog.Application.Features.Tag.Command.DeleteTag
 {
 	public class DeleteTagCommandRequest:IRequest<ResponseContainer<Unit>>,IId
 	{
-        public int Id { get; set; }
+        public DeleteTagCommandRequest()
+        {
+            
+        }
+        public DeleteTagCommandRequest(int id)
+		{
+			Id = id;
+		}
+
+		public int Id { get; set; }
     }
 }

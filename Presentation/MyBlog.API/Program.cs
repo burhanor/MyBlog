@@ -6,8 +6,11 @@ using MyBlog.Infrastructure;
 using Asp.Versioning;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 using MyBlog.API.Controllers;
 using Asp.Versioning.ApiExplorer;
+using Microsoft.AspNetCore.HttpLogging;
+using MyBlog.Application.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,7 +61,7 @@ builder.Services.AddMapperLayer();
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddApplicationLayer();
 builder.Services.AddInfrastructure(builder.Configuration);
-
+builder.Services.AddLogging();
 
 builder.Services.AddApiVersioning(config =>
 {
@@ -93,7 +96,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.ConfigureExceptionHandler();
+app.ConfigureMiddlewares();
 app.UseAuthorization();
 
 app.MapControllers();

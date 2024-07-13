@@ -22,9 +22,8 @@ namespace MyBlog.API.Extensions
 
 		public static async Task<IActionResult> CreateAsync<TRequest>(this ControllerBase controller, IMediator mediator, TRequest request) => await CreateOrUpdateAsync<TRequest, Unit>(controller, mediator, request);
 
-		public static async Task<IActionResult> UpdateAsync<TRequest, TResponse>(this ControllerBase controller, IMediator mediator, TRequest request, int id) where TRequest : class, IId, new()
+		public static async Task<IActionResult> UpdateAsync<TRequest, TResponse>(this ControllerBase controller, IMediator mediator, TRequest request) where TRequest : class, IId, new()
 		{
-			request.Id = id;
 			return await CreateOrUpdateAsync<TRequest, TResponse>(controller, mediator, request);
 		}
 

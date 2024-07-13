@@ -1,4 +1,5 @@
 ﻿using MyBlog.Application.Enums;
+using MyBlog.Application.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,13 @@ namespace MyBlog.Application.Exceptions
 	{
 		public string Message { get; set; } = string.Empty;
 		public string Detail { get; set; } = string.Empty;
+        public string StackTrace { get; set; } = string.Empty;
 		public List<string> ValidationErrors { get; set; } = [];
 		public HttpStatus Status { get; set; }
 		public override string ToString() => JsonConvert.SerializeObject(this);
+
+		
+
+		
 	}
 }

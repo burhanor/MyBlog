@@ -11,5 +11,14 @@ namespace MyBlog.Application.Features.Post.Command.CreatePostView
 	public class CreatePostViewCommandRequest:IRequest<ResponseContainer<CreatePostViewCommandResponse>>
 	{
         public int PostId { get; set; }
-    }
+        public CreatePostViewCommandRequest()
+        {
+            
+        }
+
+		public CreatePostViewCommandRequest(int postId)
+		{
+			PostId = postId;
+		}
+	}
 }

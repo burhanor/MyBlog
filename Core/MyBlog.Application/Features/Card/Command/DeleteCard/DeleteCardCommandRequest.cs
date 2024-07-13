@@ -11,6 +11,16 @@ namespace MyBlog.Application.Features.Card.Command.DeleteCard
 {
 	public class DeleteCardCommandRequest:IRequest<ResponseContainer<Unit>>,IId
 	{
-        public int Id { get; set; }
+        public DeleteCardCommandRequest()
+        {
+            
+        }
+
+		public DeleteCardCommandRequest(int id)
+		{
+			Id = id;
+		}
+
+		public int Id { get; set; }
     }
 }

@@ -1,15 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.API.Extensions;
-using MyBlog.Application.Features.Author.Queries.GetAuthors;
 using MyBlog.Application.Features.Category.Command.CreateCategory;
 using MyBlog.Application.Features.Category.Command.DeleteCategory;
 using MyBlog.Application.Features.Category.Command.UpdateCategory;
 using MyBlog.Application.Features.Category.Queries.GetCategories;
 using MyBlog.Application.Features.Category.Queries.GetCategory;
-using MyBlog.Application.Interfaces.AutoMapper;
 using MyBlog.Application.Models;
 using MyBlog.Application.Models.Category;
 
@@ -22,19 +20,18 @@ namespace MyBlog.API.Controllers
 	public class CategoryController : ControllerBase
 	{
 		private readonly IMediator mediator;
-		private readonly IMyMapper mapper;
+		private readonly ILogger<CategoryController> logger;
 
-		public CategoryController(IMediator mediator, IMyMapper mapper)
+		public CategoryController(IMediator mediator)
 		{
 			this.mediator = mediator;
-			this.mapper = mapper;
 		}
 
 		[HttpGet("{id}")]
 		[AllowAnonymous]
 		public async Task<IActionResult> GetCategory([FromRoute] int id)
 		{
-			return await this.GetByIdAsync(mediator, new GetCategoryQueryRequest { Id = id });
+			return await this.GetByIdAsync(mediator, new GetCategoryQueryRequest(id));
 		}
 		[HttpGet]
 		[AllowAnonymous]
@@ -43,22 +40,21 @@ namespace MyBlog.API.Controllers
 			return await this.GetAsync(mediator, request);
 		}
 
-
 		[HttpPost]
-		public async Task<IActionResult> CreateCategory([FromForm] CategoryModel request)
+		public async Task<IActionResult> CreateCategory([FromForm] CategoryModel model)
 		{
-			return await this.CreateAsync<CreateCategoryCommandRequest, ResponseContainer<CreateCategoryCommandResponse>>(mediator, mapper.Map<CreateCategoryCommandRequest, CategoryModel>(request));
+			return await this.CreateAsync<CreateCategoryCommandRequest, ResponseContainer<CreateCategoryCommandResponse>>(mediator, model.ToCreateCommandRequest());
 		}
 
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteCategory([FromRoute] int id)
 		{
-			return await this.DeleteAsync(mediator, new DeleteCategoryCommandRequest { Id = id });
+			return await this.DeleteAsync(mediator, new DeleteCategoryCommandRequest(id));
 		}
 		[HttpPost("{id}")]
-		public async Task<IActionResult> UpdateCategory([FromForm] CategoryModel request, [FromRoute] int id)
+		public async Task<IActionResult> UpdateCategory([FromForm] CategoryModel model, [FromRoute] int id)
 		{
-			return await this.UpdateAsync<UpdateCategoryCommandRequest, ResponseContainer<UpdateCategoryCommandResponse>>(mediator, mapper.Map<UpdateCategoryCommandRequest, CategoryModel>(request), id);
+			return await this.UpdateAsync<UpdateCategoryCommandRequest, ResponseContainer<UpdateCategoryCommandResponse>>(mediator, model.ToUpdateCommandRequest(id));
 		}
 	}
 }

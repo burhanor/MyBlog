@@ -11,6 +11,15 @@ namespace MyBlog.Application.Features.Slider.Queries.GetSlider
 {
 	public class GetSliderQueryRequest:IRequest<ResponseContainer<GetSliderQueryResponse>>,IId
 	{
+        public GetSliderQueryRequest()
+        {
+            
+        }
+        public GetSliderQueryRequest(int id)
+		{
+			Id = id;
+		}
+
 		public int Id { get; set; }
 	}
 }

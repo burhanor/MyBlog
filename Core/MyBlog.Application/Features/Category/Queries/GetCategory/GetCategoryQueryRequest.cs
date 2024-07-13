@@ -11,6 +11,14 @@ namespace MyBlog.Application.Features.Category.Queries.GetCategory
 {
 	public class GetCategoryQueryRequest:IRequest<ResponseContainer<GetCategoryQueryResponse>>,IId
 	{
+        public GetCategoryQueryRequest()
+        {
+            
+        }
+        public GetCategoryQueryRequest(int id)
+        {
+            Id= id; 
+        }
         public int Id { get; set; }
     }
 }
