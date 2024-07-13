@@ -10,7 +10,17 @@ namespace MyBlog.Application.Features.PostRecommendation.Command.CreatePostRecom
 {
 	public class CreatePostRecommendationCommandRequest:IRequest<ResponseContainer<CreatePostRecommendationCommandResponse>>
 	{
-        public int PostId { get; set; }
+        public CreatePostRecommendationCommandRequest()
+        {
+            
+        }
+        public CreatePostRecommendationCommandRequest(int postId, int displayOrder)
+		{
+			PostId = postId;
+			DisplayOrder = displayOrder;
+		}
+
+		public int PostId { get; set; }
         public int DisplayOrder { get; set; }
     }
 }

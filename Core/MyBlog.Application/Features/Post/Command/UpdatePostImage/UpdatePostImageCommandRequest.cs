@@ -11,5 +11,23 @@ namespace MyBlog.Application.Features.Post.Command.UpdatePostImage
 		public int Id { get; set; }
 		public ImageType ImageType { get; set; }
 		public IFormFile Image { get; set; }
+
+        public UpdatePostImageCommandRequest()
+        {
+            
+        }
+
+		public UpdatePostImageCommandRequest(ImageType imageType, IFormFile image)
+		{
+			ImageType = imageType;
+			Image = image;
+		}
+
+		public UpdatePostImageCommandRequest(int ıd, ImageType imageType, IFormFile image)
+		{
+			Id = ıd;
+			ImageType = imageType;
+			Image = image;
+		}
 	}
 }

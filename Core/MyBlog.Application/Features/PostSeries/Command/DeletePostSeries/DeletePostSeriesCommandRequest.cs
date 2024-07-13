@@ -11,6 +11,16 @@ namespace MyBlog.Application.Features.PostSeries.Command.DeletePostSeries
 {
 	public class DeletePostSeriesCommandRequest:IRequest<ResponseContainer<Unit>>
 	{
+        public DeletePostSeriesCommandRequest()
+        {
+            
+        }
+        public DeletePostSeriesCommandRequest(int postId, int seriesId)
+		{
+			PostId = postId;
+			SeriesId = seriesId;
+		}
+
 		public int PostId { get; set; }
 		public int SeriesId { get; set; }
 	}

@@ -11,6 +11,15 @@ namespace MyBlog.Application.Features.PostRecommendation.Command.DeletePostRecom
 {
 	public class DeletePostRecommendationCommandRequest:IRequest<ResponseContainer<Unit>>,IId
 	{
-        public int Id { get; set; }
+        public DeletePostRecommendationCommandRequest()
+        {
+            
+        }
+        public DeletePostRecommendationCommandRequest(int id)
+		{
+			Id = id;
+		}
+
+		public int Id { get; set; }
     }
 }

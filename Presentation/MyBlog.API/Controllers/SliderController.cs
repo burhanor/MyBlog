@@ -7,7 +7,6 @@ using MyBlog.Application.Features.Slider.Command.DeleteSlider;
 using MyBlog.Application.Features.Slider.Command.UpdateSlider;
 using MyBlog.Application.Features.Slider.Queries.GetSlider;
 using MyBlog.Application.Features.Slider.Queries.GetSliders;
-using MyBlog.Application.Interfaces.AutoMapper;
 using MyBlog.Application.Models;
 using MyBlog.Application.Models.Slider;
 
@@ -20,19 +19,17 @@ namespace MyBlog.API.Controllers
 	public class SliderController : ControllerBase
 	{
 		private readonly IMediator mediator;
-		private readonly IMyMapper mapper;
 
-		public SliderController(IMediator mediator, IMyMapper mapper)
+		public SliderController(IMediator mediator)
 		{
 			this.mediator = mediator;
-			this.mapper = mapper;
 		}
 
 		[HttpGet("{id}")]
 		[AllowAnonymous]
 		public async Task<IActionResult> GetSlider([FromRoute] int id)
 		{
-			return await this.GetByIdAsync(mediator, new GetSliderQueryRequest { Id = id });
+			return await this.GetByIdAsync(mediator, new GetSliderQueryRequest(id));
 		}
 		[HttpGet]
 		[AllowAnonymous]
@@ -45,18 +42,18 @@ namespace MyBlog.API.Controllers
 		[HttpPost]
 		public async Task<IActionResult> CreateSlider([FromForm] SliderModel request)
 		{
-			return await this.CreateAsync<CreateSliderCommandRequest, ResponseContainer<CreateSliderCommandResponse>>(mediator, mapper.Map<CreateSliderCommandRequest, SliderModel>(request));
+			return await this.CreateAsync<CreateSliderCommandRequest, ResponseContainer<CreateSliderCommandResponse>>(mediator, request.ToCreateCommandRequest());
 		}
 
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteSlider([FromRoute] int id)
 		{
-			return await this.DeleteAsync(mediator, new DeleteSliderCommandRequest { Id = id });
+			return await this.DeleteAsync(mediator, new DeleteSliderCommandRequest(id));
 		}
 		[HttpPost("{id}")]
 		public async Task<IActionResult> UpdateSlider([FromForm] SliderModel request, [FromRoute] int id)
 		{
-			return await this.UpdateAsync<UpdateSliderCommandRequest, ResponseContainer<UpdateSliderCommandResponse>>(mediator, mapper.Map<UpdateSliderCommandRequest, SliderModel>(request), id);
+			return await this.UpdateAsync<UpdateSliderCommandRequest, ResponseContainer<UpdateSliderCommandResponse>>(mediator, request.ToUpdateCommandRequest(id), id);
 		}
 
 	}

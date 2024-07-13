@@ -12,7 +12,6 @@ using MyBlog.Application.Features.Post.Queries.GetPost;
 using MyBlog.Application.Features.Post.Queries.GetPosts;
 using MyBlog.Application.Features.Post.Queries.GetPostViewCount;
 using MyBlog.Application.Features.Post.Queries.GetPublishedPosts;
-using MyBlog.Application.Interfaces.AutoMapper;
 using MyBlog.Application.Models;
 using MyBlog.Application.Models.Post;
 
@@ -25,19 +24,16 @@ namespace MyBlog.API.Controllers
 	public class PostController : ControllerBase
 	{
 		private readonly IMediator mediator;
-		private readonly IMyMapper mapper;
-
-		public PostController(IMediator mediator, IMyMapper mapper)
+		public PostController(IMediator mediator)
 		{
 			this.mediator = mediator;
-			this.mapper = mapper;
 		}
 
 		[HttpGet("{id}")]
 		[AllowAnonymous]
 		public async Task<IActionResult> GetPost([FromRoute] int id)
 		{
-			return await this.GetByIdAsync(mediator, new GetPostQueryRequest { Id = id });
+			return await this.GetByIdAsync(mediator, new GetPostQueryRequest(id));
 		}
 		[HttpGet]
 		[AllowAnonymous]
@@ -55,7 +51,7 @@ namespace MyBlog.API.Controllers
 		[HttpPost]
 		public async Task<IActionResult> CreatePost([FromForm] PostModel request)
 		{
-			return await this.CreateAsync<CreatePostCommandRequest, ResponseContainer<CreatePostCommandResponse>>(mediator, mapper.Map<CreatePostCommandRequest, PostModel>(request));
+			return await this.CreateAsync<CreatePostCommandRequest, ResponseContainer<CreatePostCommandResponse>>(mediator, request.ToCreateCommandRequest());
 		}
 
 		[HttpDelete("{id}")]
@@ -66,46 +62,43 @@ namespace MyBlog.API.Controllers
 		[HttpPost("{id}")]
 		public async Task<IActionResult> UpdatePost([FromForm] PostModel request, [FromRoute] int id)
 		{
-			return await this.UpdateAsync<UpdatePostCommandRequest, ResponseContainer<UpdatePostCommandResponse>>(mediator, mapper.Map<UpdatePostCommandRequest, PostModel>(request), id);
+			return await this.UpdateAsync<UpdatePostCommandRequest, ResponseContainer<UpdatePostCommandResponse>>(mediator, request.ToUpdateCommandRequest(id), id);
 		}
 
 		[HttpPut("{postId}/thumbnail")]
 		public async Task<IActionResult> UpdateThumbnailImage([FromRoute] int postId, [FromForm] ImageModel image)
 		{
-			UpdatePostImageCommandRequest request = new() { ImageType = Domain.Enums.ImageType.PostThumbnail, Image = image.Image };
+			UpdatePostImageCommandRequest request = new(Domain.Enums.ImageType.PostThumbnail,image.Image);
 			return await this.UpdateAsync<UpdatePostImageCommandRequest, ResponseContainer<UpdatePostImageCommandResponse>>(mediator, request, postId);
 		}
 		[HttpPut("{postId}/header")]
 		public async Task<IActionResult> UpdateHeaderImage([FromRoute] int postId, [FromForm] ImageModel image)
 		{
-			UpdatePostImageCommandRequest request = new() { ImageType = Domain.Enums.ImageType.PostHeader, Image = image.Image };
+			UpdatePostImageCommandRequest request = new(Domain.Enums.ImageType.PostHeader, image.Image);
 			return await this.UpdateAsync<UpdatePostImageCommandRequest, ResponseContainer<UpdatePostImageCommandResponse>>(mediator, request, postId);
 		}
 
 		[HttpDelete("{postId}/thumbnail")]
 		public async Task<IActionResult> DeleteThumbnailImage([FromRoute] int postId)
 		{
-			return await this.DeleteAsync(mediator, new DeletePostImageCommandRequest { PostId = postId, ImageType = Domain.Enums.ImageType.PostThumbnail });
+			return await this.DeleteAsync(mediator, new DeletePostImageCommandRequest(postId, Domain.Enums.ImageType.PostThumbnail));
 		}
 		[HttpDelete("{postId}/header")]
 		public async Task<IActionResult> DeleteHeaderImage([FromRoute] int postId)
 		{
-			return await this.DeleteAsync(mediator, new DeletePostImageCommandRequest { PostId = postId, ImageType = Domain.Enums.ImageType.PostHeader });
+			return await this.DeleteAsync(mediator, new DeletePostImageCommandRequest(postId, Domain.Enums.ImageType.PostHeader));
 		}
 
 		[HttpPost("{postId}/view")]
 		public async Task<IActionResult> CreateViewCount([FromRoute] int postId)
 		{
-			return await this.CreateAsync<CreatePostViewCommandRequest, ResponseContainer<CreatePostViewCommandResponse>>(mediator, new CreatePostViewCommandRequest()
-			{
-				PostId=postId
-			});
+			return await this.CreateAsync<CreatePostViewCommandRequest, ResponseContainer<CreatePostViewCommandResponse>>(mediator, new CreatePostViewCommandRequest(postId));
 		}
 		[HttpGet("{postId}/view")]
 		[AllowAnonymous]
 		public async Task<IActionResult> GetPostViewCount([FromRoute] int postId)
 		{
-			return await this.GetByIdAsync(mediator, new GetPostViewCountQueryRequest { Id = postId });
+			return await this.GetByIdAsync(mediator, new GetPostViewCountQueryRequest(postId));
 		}
 	}
 }
