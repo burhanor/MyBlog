@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using MyBlog.Application.Extensions;
 using MyBlog.Application.Interfaces.AutoMapper;
 using MyBlog.Application.Interfaces.Repositories;
 using MyBlog.Application.Interfaces.UnitOfWork;
@@ -21,8 +22,7 @@ namespace MyBlog.Application.Bases
 			this.uow = uow;
 			this.mapper = mapper;
 			this.httpContextAccessor = httpContextAccessor;
-			if (httpContextAccessor.HttpContext.User.Identity != null)
-				userId = httpContextAccessor.HttpContext.User.Identity.IsAuthenticated ? Convert.ToInt32(httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value) : 0;
+			userId = httpContextAccessor.GetUserId();
 			readRepository = uow.GetReadRepository<T>();
 			writeRepository = uow.GetWriteRepository<T>();
 		}
@@ -39,8 +39,7 @@ namespace MyBlog.Application.Bases
 			this.uow = uow;
 			this.mapper = mapper;
 			this.httpContextAccessor = httpContextAccessor;
-			if (httpContextAccessor.HttpContext.User.Identity != null)
-				userId = httpContextAccessor.HttpContext.User.Identity.IsAuthenticated ? Convert.ToInt32(httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value) : 0;
+			userId = httpContextAccessor.GetUserId();
 		}
 
 

@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Mvc;
 using MyBlog.API.Extensions;
 using MyBlog.Application.Features.Category.Command.CreateCategory;
@@ -19,6 +20,7 @@ namespace MyBlog.API.Controllers
 	public class CategoryController : ControllerBase
 	{
 		private readonly IMediator mediator;
+		private readonly ILogger<CategoryController> logger;
 
 		public CategoryController(IMediator mediator)
 		{
