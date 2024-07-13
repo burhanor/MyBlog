@@ -52,7 +52,7 @@ namespace MyBlog.API.Controllers
 		[HttpPost("{id}")]
 		public async Task<IActionResult> UpdateMenu([FromForm] MenuModel model, [FromRoute] int id)
 		{
-			return await this.UpdateAsync<UpdateMenuCommandRequest, ResponseContainer<UpdateMenuCommandResponse>>(mediator, model.ToUpdateCommandRequest(id), id);
+			return await this.UpdateAsync<UpdateMenuCommandRequest, ResponseContainer<UpdateMenuCommandResponse>>(mediator, model.ToUpdateCommandRequest(id));
 		}
 
 

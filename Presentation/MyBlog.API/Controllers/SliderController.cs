@@ -53,7 +53,7 @@ namespace MyBlog.API.Controllers
 		[HttpPost("{id}")]
 		public async Task<IActionResult> UpdateSlider([FromForm] SliderModel request, [FromRoute] int id)
 		{
-			return await this.UpdateAsync<UpdateSliderCommandRequest, ResponseContainer<UpdateSliderCommandResponse>>(mediator, request.ToUpdateCommandRequest(id), id);
+			return await this.UpdateAsync<UpdateSliderCommandRequest, ResponseContainer<UpdateSliderCommandResponse>>(mediator, request.ToUpdateCommandRequest(id));
 		}
 
 	}

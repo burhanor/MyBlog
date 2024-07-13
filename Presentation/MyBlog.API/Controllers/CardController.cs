@@ -52,7 +52,7 @@ namespace MyBlog.API.Controllers
 		[HttpPost("{id}")]
 		public async Task<IActionResult> UpdateCard([FromForm] CardModel model, [FromRoute] int id)
 		{
-			return await this.UpdateAsync<UpdateCardCommandRequest, ResponseContainer<UpdateCardCommandResponse>>(mediator, model.ToUpdateCommandRequest(id), id);
+			return await this.UpdateAsync<UpdateCardCommandRequest, ResponseContainer<UpdateCardCommandResponse>>(mediator, model.ToUpdateCommandRequest(id));
 		}
 
 	}

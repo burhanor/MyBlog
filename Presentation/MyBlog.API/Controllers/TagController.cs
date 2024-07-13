@@ -53,7 +53,7 @@ namespace MyBlog.API.Controllers
 		[HttpPost("{id}")]
 		public async Task<IActionResult> UpdateTag([FromForm] TagModel request, [FromRoute] int id)
 		{
-			return await this.UpdateAsync<UpdateTagCommandRequest, ResponseContainer<UpdateTagCommandResponse>>(mediator, request.ToUpdateCommandRequest(id), id);
+			return await this.UpdateAsync<UpdateTagCommandRequest, ResponseContainer<UpdateTagCommandResponse>>(mediator, request.ToUpdateCommandRequest(id));
 		}
 
 

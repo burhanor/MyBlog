@@ -55,19 +55,19 @@ namespace MyBlog.API.Controllers
 		[HttpPost("{id}")]
 		public async Task<IActionResult> UpdateSeries([FromForm] SeriesModel request, [FromRoute] int id)
 		{
-			return await this.UpdateAsync<UpdateSeriesCommandRequest, ResponseContainer<UpdateSeriesCommandResponse>>(mediator, request.ToUpdateCommandRequest(id), id);
+			return await this.UpdateAsync<UpdateSeriesCommandRequest, ResponseContainer<UpdateSeriesCommandResponse>>(mediator, request.ToUpdateCommandRequest(id));
 		}
 		[HttpPut("{seriesId}/thumbnail")]
 		public async Task<IActionResult> UpdateThumbnailImage([FromRoute] int seriesId,[FromForm] ImageModel image)
 		{
-			UpdateSeriesImageCommandRequest request = new(Domain.Enums.ImageType.SeriesThumbnail, image.Image);
-			return await this.UpdateAsync<UpdateSeriesImageCommandRequest, ResponseContainer<UpdateSeriesImageCommandResponse>>(mediator, request,seriesId);
+			UpdateSeriesImageCommandRequest request = new(seriesId, Domain.Enums.ImageType.SeriesThumbnail, image.Image);
+			return await this.UpdateAsync<UpdateSeriesImageCommandRequest, ResponseContainer<UpdateSeriesImageCommandResponse>>(mediator, request);
 		}
 		[HttpPut("{seriesId}/header")]
 		public async Task<IActionResult> UpdateHeaderImage([FromRoute] int seriesId, [FromForm] ImageModel image)
 		{
-			UpdateSeriesImageCommandRequest request = new(Domain.Enums.ImageType.SeriesHeader, image.Image);
-			return await this.UpdateAsync<UpdateSeriesImageCommandRequest, ResponseContainer<UpdateSeriesImageCommandResponse>>(mediator, request, seriesId);
+			UpdateSeriesImageCommandRequest request = new(seriesId,Domain.Enums.ImageType.SeriesHeader, image.Image);
+			return await this.UpdateAsync<UpdateSeriesImageCommandRequest, ResponseContainer<UpdateSeriesImageCommandResponse>>(mediator, request);
 		}
 
 		[HttpDelete("{seriesId}/thumbnail")]

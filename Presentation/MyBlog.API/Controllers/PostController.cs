@@ -62,20 +62,20 @@ namespace MyBlog.API.Controllers
 		[HttpPost("{id}")]
 		public async Task<IActionResult> UpdatePost([FromForm] PostModel request, [FromRoute] int id)
 		{
-			return await this.UpdateAsync<UpdatePostCommandRequest, ResponseContainer<UpdatePostCommandResponse>>(mediator, request.ToUpdateCommandRequest(id), id);
+			return await this.UpdateAsync<UpdatePostCommandRequest, ResponseContainer<UpdatePostCommandResponse>>(mediator, request.ToUpdateCommandRequest(id));
 		}
 
 		[HttpPut("{postId}/thumbnail")]
 		public async Task<IActionResult> UpdateThumbnailImage([FromRoute] int postId, [FromForm] ImageModel image)
 		{
-			UpdatePostImageCommandRequest request = new(Domain.Enums.ImageType.PostThumbnail,image.Image);
-			return await this.UpdateAsync<UpdatePostImageCommandRequest, ResponseContainer<UpdatePostImageCommandResponse>>(mediator, request, postId);
+			UpdatePostImageCommandRequest request = new(postId,Domain.Enums.ImageType.PostThumbnail,image.Image);
+			return await this.UpdateAsync<UpdatePostImageCommandRequest, ResponseContainer<UpdatePostImageCommandResponse>>(mediator, request);
 		}
 		[HttpPut("{postId}/header")]
 		public async Task<IActionResult> UpdateHeaderImage([FromRoute] int postId, [FromForm] ImageModel image)
 		{
-			UpdatePostImageCommandRequest request = new(Domain.Enums.ImageType.PostHeader, image.Image);
-			return await this.UpdateAsync<UpdatePostImageCommandRequest, ResponseContainer<UpdatePostImageCommandResponse>>(mediator, request, postId);
+			UpdatePostImageCommandRequest request = new(postId,Domain.Enums.ImageType.PostHeader, image.Image);
+			return await this.UpdateAsync<UpdatePostImageCommandRequest, ResponseContainer<UpdatePostImageCommandResponse>>(mediator, request);
 		}
 
 		[HttpDelete("{postId}/thumbnail")]
