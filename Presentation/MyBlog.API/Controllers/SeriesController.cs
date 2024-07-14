@@ -52,7 +52,7 @@ namespace MyBlog.API.Controllers
 		{
 			return await this.DeleteAsync(mediator, new DeleteSeriesCommandRequest { Id = id });
 		}
-		[HttpPost("{id}")]
+		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateSeries([FromForm] SeriesModel request, [FromRoute] int id)
 		{
 			return await this.UpdateAsync<UpdateSeriesCommandRequest, ResponseContainer<UpdateSeriesCommandResponse>>(mediator, request.ToUpdateCommandRequest(id));

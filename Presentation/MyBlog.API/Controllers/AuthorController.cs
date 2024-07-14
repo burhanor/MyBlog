@@ -34,7 +34,7 @@ namespace MyBlog.API.Controllers
 		}
 
 
-		[HttpPost("{id}")]
+		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateAuthor([FromRoute]int id,[FromForm] AuthorModel model)
 		{
 			return await this.UpdateAsync<UpdateAuthorCommandRequest, ResponseContainer<UpdateAuthorCommandResponse>>(mediator, model.ToUpdateCommandRequest(id));
@@ -47,14 +47,14 @@ namespace MyBlog.API.Controllers
 		}
 
 
-		[HttpPost]
+		[HttpPut]
 		[Route("change-password")]
 		public async Task<IActionResult> ChangePassword(string password)
 		{
 			return await this.UpdateAsync<ChangePasswordCommandRequest, ResponseContainer<ChangePasswordCommandResponse>>(mediator, new ChangePasswordCommandRequest(password));
 		}
 
-		[HttpPost]
+		[HttpPut]
 		[Route("change-avatar")]
 		public async Task<IActionResult> ChangeAvatar(IFormFile image)
 		{

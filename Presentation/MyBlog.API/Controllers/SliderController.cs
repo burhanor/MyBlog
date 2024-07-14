@@ -50,7 +50,7 @@ namespace MyBlog.API.Controllers
 		{
 			return await this.DeleteAsync(mediator, new DeleteSliderCommandRequest(id));
 		}
-		[HttpPost("{id}")]
+		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateSlider([FromForm] SliderModel request, [FromRoute] int id)
 		{
 			return await this.UpdateAsync<UpdateSliderCommandRequest, ResponseContainer<UpdateSliderCommandResponse>>(mediator, request.ToUpdateCommandRequest(id));
