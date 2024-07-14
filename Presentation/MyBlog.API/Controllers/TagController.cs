@@ -50,7 +50,7 @@ namespace MyBlog.API.Controllers
 		{
 			return await this.DeleteAsync(mediator, new DeleteTagCommandRequest(id));
 		}
-		[HttpPost("{id}")]
+		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateTag([FromForm] TagModel request, [FromRoute] int id)
 		{
 			return await this.UpdateAsync<UpdateTagCommandRequest, ResponseContainer<UpdateTagCommandResponse>>(mediator, request.ToUpdateCommandRequest(id));

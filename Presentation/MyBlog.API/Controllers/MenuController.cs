@@ -49,7 +49,7 @@ namespace MyBlog.API.Controllers
 		{
 			return await this.DeleteAsync(mediator, new DeleteMenuCommandRequest(id));
 		}
-		[HttpPost("{id}")]
+		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateMenu([FromForm] MenuModel model, [FromRoute] int id)
 		{
 			return await this.UpdateAsync<UpdateMenuCommandRequest, ResponseContainer<UpdateMenuCommandResponse>>(mediator, model.ToUpdateCommandRequest(id));

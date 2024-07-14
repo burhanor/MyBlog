@@ -49,7 +49,7 @@ namespace MyBlog.API.Controllers
 		{
 			return await this.DeleteAsync(mediator, new DeleteCardCommandRequest(id));
 		}
-		[HttpPost("{id}")]
+		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateCard([FromForm] CardModel model, [FromRoute] int id)
 		{
 			return await this.UpdateAsync<UpdateCardCommandRequest, ResponseContainer<UpdateCardCommandResponse>>(mediator, model.ToUpdateCommandRequest(id));

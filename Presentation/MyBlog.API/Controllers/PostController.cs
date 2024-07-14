@@ -59,7 +59,7 @@ namespace MyBlog.API.Controllers
 		{
 			return await this.DeleteAsync(mediator, new DeletePostCommandRequest { Id = id });
 		}
-		[HttpPost("{id}")]
+		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdatePost([FromForm] PostModel request, [FromRoute] int id)
 		{
 			return await this.UpdateAsync<UpdatePostCommandRequest, ResponseContainer<UpdatePostCommandResponse>>(mediator, request.ToUpdateCommandRequest(id));

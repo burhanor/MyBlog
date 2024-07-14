@@ -51,7 +51,7 @@ namespace MyBlog.API.Controllers
 		{
 			return await this.DeleteAsync(mediator, new DeleteCategoryCommandRequest(id));
 		}
-		[HttpPost("{id}")]
+		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateCategory([FromForm] CategoryModel model, [FromRoute] int id)
 		{
 			return await this.UpdateAsync<UpdateCategoryCommandRequest, ResponseContainer<UpdateCategoryCommandResponse>>(mediator, model.ToUpdateCommandRequest(id));
