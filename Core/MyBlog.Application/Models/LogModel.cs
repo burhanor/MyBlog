@@ -12,15 +12,16 @@ namespace MyBlog.Application.Models
         {
             
         }
-        public LogModel(int statusCode,string? methodType, string? path, int userId, string ipAddress,string nickname, string response)
+        public LogModel(int statusCode,string? methodType, string? path, int userId, string ipAddress,string nickname, string? response,string? request)
 		{
 			StatusCode = statusCode;
 			MethodType = methodType??string.Empty;
 			Path = path ?? string.Empty;
 			UserId = userId;
 			IpAddress = ipAddress;
-			Response = response;
+			Response = response??string.Empty;
 			Nickname = nickname;
+			Request = request ?? string.Empty;
 		}
         public int StatusCode { get; set; }
         public DateTime DateTime { get; set; }=DateTime.Now;
@@ -30,8 +31,9 @@ namespace MyBlog.Application.Models
         public string IpAddress { get; set; } = string.Empty;
 		public string Response { get; set; } = string.Empty;
 		public string Nickname { get; set; } = string.Empty;
+        public string Request { get; set; } = string.Empty;
 
-        public override string ToString()
+		public override string ToString()
 		{
 			StringBuilder logBuilder= new StringBuilder();
 			logBuilder.AppendLine($"{"Time",-15} = {DateTime}");
@@ -41,10 +43,28 @@ namespace MyBlog.Application.Models
 			logBuilder.AppendLine($"{"IpAddress",-15} = {IpAddress}");
 			logBuilder.AppendLine($"{"UserId",-15} = {UserId}");
 			logBuilder.AppendLine($"{"Nickname",-15} = {Nickname}");
+			logBuilder.AppendLine($"{"Request",-15} = {Request}");
 			logBuilder.AppendLine($"{"Response",-15} = {Response}");
 			logBuilder.AppendLine(" ============================================================");
 			logBuilder.AppendLine("\n\n");
+			SaveLog(logBuilder.ToString());
 			return logBuilder.ToString();
 		}
+
+		public void SaveLog(string log)
+		{
+			string path = $"Logs/log{DateTime.Now:dd-MM-yyyy}.txt";
+			//if file does not exist, create it
+			if (!File.Exists(path))
+			{
+				File.Create(path).Dispose();
+			}
+			using StreamWriter sw = File.AppendText(path);
+			sw.WriteLine(log);
+			sw.Close();
+		}
+
+		
+
 	}
 }
