@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace MyBlog.Application.Middlewares
@@ -31,9 +33,11 @@ namespace MyBlog.Application.Middlewares
 			await next(context);
 
 			context.Response.Body.Seek(0, SeekOrigin.Begin);
-			var responseLog = await new StreamReader(context.Response.Body).ReadToEndAsync();
+			string? responseLog =  await new StreamReader(context.Response.Body).ReadToEndAsync();
+
+			string? requestLog = context.Request.Serialize();
 			context.Response.Body.Seek(0, SeekOrigin.Begin);
-			LogModel logModel = new(context.Response.StatusCode, context.Request?.Method, context.Request?.Path.Value, httpContextAccessor.GetUserId(), httpContextAccessor.GetIpAddress(), httpContextAccessor.GetNickname(), responseLog);
+			LogModel logModel = new(context.Response.StatusCode, context.Request?.Method, context.Request?.Path.Value, httpContextAccessor.GetUserId(), httpContextAccessor.GetIpAddress(), httpContextAccessor.GetNickname(), responseLog, requestLog);
 
 			Log(logModel);
 			await responseBody.CopyToAsync(originalBodyStream);
@@ -41,6 +45,7 @@ namespace MyBlog.Application.Middlewares
 
 		private void Log(LogModel log)
 		{
+			
 			_logger.Log(GetLogType(log.StatusCode), log.ToString());
 		}
 

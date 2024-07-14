@@ -62,7 +62,8 @@ namespace MyBlog.Application.Middlewares
 				StackTrace = ex.StackTrace ?? string.Empty,
 				Message = ex.Message
 			};
-            logger.LogError(LogModel(context,exceptionModel).ToString());
+            LogModel log = LogModel(context, exceptionModel);
+			logger.LogError(log.ToString());
             return context.Response.WriteAsync(exceptionModel.ToString());
         }
 
@@ -79,7 +80,8 @@ namespace MyBlog.Application.Middlewares
 
         private LogModel LogModel(HttpContext context,ExceptionModel exceptionModel)
         {
-            return new LogModel(context.Response.StatusCode, context.Request?.Method, context.Request?.Path.Value, accessor.GetUserId(), accessor.GetIpAddress(), accessor.GetNickname(), exceptionModel.ToString());
+            string request= context.Request.Serialize();
+            return new LogModel(context.Response.StatusCode, context.Request?.Method, context.Request?.Path.Value, accessor.GetUserId(), accessor.GetIpAddress(), accessor.GetNickname(), exceptionModel.ToString(), request);
         }
 
     }

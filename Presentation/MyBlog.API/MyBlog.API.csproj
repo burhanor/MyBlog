@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Logs\" />
     <Folder Include="wwwroot\images\authors\" />
     <Folder Include="wwwroot\images\cards\" />
     <Folder Include="wwwroot\images\others\" />
